@@ -14,11 +14,18 @@ class Post extends Model {
 
     protected $guarded = ['id'];
 
-    public function comments(): BelongsTo {
+    public function user(): BelongsTo {
         return $this->belongsTo(User::class);
     }
 
     public function comments(): HasMany {
         return $this->hasMany(Comment::class);
+    }
+
+    public function scopeFilter(Builder $query, string $keyword): void {
+        $query->when($keyword,
+            fn (Builder $query, string $keyword) =>
+                $query->where('title', 'LIKE', "%$keyword%")
+        );
     }
 }
