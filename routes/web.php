@@ -1,10 +1,33 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
+// use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ {
+  LearnController,
+  PostController,
+  TutorialController,
+};
+// use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+// use Inertia\Inertia;
 
+Route::view('/home', 'home', [
+    'title' => 'Home',
+])->name('home');
+
+Route::controller(TutorialController::class)->prefix('/tutorial')->name('tutorial.')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/{post}', 'show')->name('show');
+});
+
+Route::controller(LearnController::class)->prefix('/learn')->name('learn.')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/{post}', 'show')->name('show');
+});
+
+Route::resource('tutorial', TutorialController::class)->only('index', 'show');
+Route::resource('posts', PostController::class);
+
+/*
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -25,3 +48,4 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+*/
