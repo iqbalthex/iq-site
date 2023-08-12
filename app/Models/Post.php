@@ -3,20 +3,48 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\ {
+  Concerns\HasUlids,
   Factories\HasFactory,
   Model,
   Relations\BelongsTo,
   Relations\HasMany,
+  SoftDeletes,
 };
 
 class Post extends Model {
-    use HasFactory;
+    use HasFactory, HasUlids, SoftDeletes;
 
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
     protected $guarded = ['id'];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
     protected $casts = [
         'tags' => 'array',
     ];
+
+    /**
+     * Get the columns that should receive a unique identifier.
+     *
+     * @return array<int, string>
+     */
+    public function uniqueIds(): array {
+        return ['ulid'];
+    }
+
+    /**
+     * Get the route key for the model.
+     */
+    public function getRouteKeyName(): string {
+        return 'ulid';
+    }
 
     public function user(): BelongsTo {
         return $this->belongsTo(User::class);

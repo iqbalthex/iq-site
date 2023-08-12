@@ -28,11 +28,17 @@ class PostSeeder extends Seeder
                 'body' => fake()->paragraph(2),
             ]);
         }
+        $post = Post::create([
+            'category_id' => mt_rand(1,2),
+            'user_id' => 1,
+            'title' => fake()->name(),
+            'body' => fake()->paragraph(2),
+        ]);
 
         for ($i = 0; $i < 10; $i++) {
-            Comment::create([
+            Comment::insert([
                 'user_id' => 1,
-                'post_id' => mt_rand(1, 10),
+                'post_ulid' => $post->ulid,
                 'body' => fake()->sentence(),
             ]);
         }
