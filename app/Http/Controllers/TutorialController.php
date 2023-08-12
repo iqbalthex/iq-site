@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TutorialController extends Controller
 {
@@ -12,7 +14,17 @@ class TutorialController extends Controller
      */
     public function index()
     {
-        //
+        $categoryId = Category::whereIn('tags', ['tutorial'])->value('id');
+        dd($categoryId->get());
+
+        $posts = Post::where('category_id', $categoryId)->get();
+
+        // $paths = [
+            // [ 'url' => route('posts.index'), 'title' => 'Tutorial' ],
+            // [ 'title' => $posts[0]->title ],
+        // ];
+
+        return Inertia::render('Posts/Index', compact('posts'));
     }
 
     /**

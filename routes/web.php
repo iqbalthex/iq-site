@@ -2,6 +2,7 @@
 
 // use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ {
+  CategoryController,
   LearnController,
   PostController,
   TutorialController,
@@ -17,17 +18,21 @@ Route::get('/home', function (): Response {
     ]);
 })->name('home');
 
-Route::controller(TutorialController::class)->prefix('/tutorial')->name('tutorial.')->group(function () {
+Route::controller(TutorialController::class)->prefix('/tutorials')->name('tutorials.')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/{post}', 'show')->name('show');
 });
 
-Route::controller(LearnController::class)->prefix('/learn')->name('learn.')->group(function () {
+Route::controller(LearnController::class)->prefix('/learns')->name('learns.')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/{post}', 'show')->name('show');
 });
 
-Route::resource('tutorial', TutorialController::class)->only('index', 'show');
+Route::controller(CategoryController::class)->prefix('/categories')->name('categories.')->group(function () {
+    Route::get('/', 'index')->name('index');
+});
+
+// Route::resource('tutorial', TutorialController::class)->only('index', 'show');
 Route::resource('posts', PostController::class);
 
 /*

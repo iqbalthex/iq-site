@@ -3,23 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Actions\UpdatePostTags;
-use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class PostController extends Controller {
+class CategoryController extends Controller {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request): Response|View {
-        $posts = Post::all();
-
-        return Inertia::render('Posts/Index', compact(
-            'posts',
-        ));
+        //
     }
 
     /**
@@ -32,43 +28,40 @@ class PostController extends Controller {
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, UpdatePostTags, $updatePostTags): RedirectResponse {
-        
+    public function store(Request $request, UpdatePostTags $updatePostTags): RedirectResponse {
+        $newTags = Category::select('slug')->get()
+            ->map(fn ($value) => $value->slug)
+            ->merge([ $request->name ])
+            ->toArray();
 
-        // $UpdatePostTags($newTags);
-
-        return back(); //->with('alert', []);
+        $updatePostTags($newTags);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Post $post): View {
+    public function show(Category $category): View {
         //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post): View {
+    public function edit(Category $category): View {
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post): RedirectResponse {
-        
-
-        // $UpdatePostTags($newTags);
-
-        return back(); //->with('alert', []);
+    public function update(Request $request, Category $category): RedirectResponse {
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post): RedirectResponse {
+    public function destroy(Category $category): RedirectResponse {
         //
     }
 }

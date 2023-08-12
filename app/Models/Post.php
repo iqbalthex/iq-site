@@ -14,6 +14,10 @@ class Post extends Model {
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'tags' => 'array',
+    ];
+
     public function user(): BelongsTo {
         return $this->belongsTo(User::class);
     }
