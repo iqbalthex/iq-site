@@ -21,11 +21,17 @@ const props = defineProps({
 <section class="dark:bg-gray-900">
   <div class="px-4 max-w-screen-xl md:px-12 lg:px-16">
     <div class="max-w-screen-lg text-gray-500 md:w-4/5 sm:text-lg dark:text-gray-400">
-      <!-- <Page-Title>Welcome Page</Page-Title> -->
-      <h2 class="mb-1 text-4xl text-center font-bold text-gray-900 md:text-start dark:text-white">Welcome</h2>
+      <Page-Title>Welcome Page</Page-Title>
       <p class="mb-4">Halo, selamat datang di IQ-SITE, situs yang saya buat. Tujuan dibuatnya situs ini adalah melatih kemampuan menulis saya dan berbagi pengetahuan mengenai teknologi dengan orang-orang termasuk kamu. Berikut detail masing-masing halaman pada IQ-SITE.</p>
 
-      <!-- <Paragraph-Head>Beranda</Paragraph-Head> -->
+      <!-- <Paragraph> -->
+        <!-- <template #head> -->
+          <!-- Beranda -->
+        <!-- </template> -->
+        <!-- <template #body> -->
+        <!-- </template> -->
+      <!-- </Paragraph> -->
+
       <h3 class="mb-1 text-2xl font-medium text-gray-800 dark:text-white">Beranda</h3>
       <p class="mb-4">Halaman saat ini, pembuka dan perkenalan situs saya kepada teman-teman sebagai pembaca, agar mengetahui tujuan situs ini dibuat serta fitur atau hal apa saja yang bisa kamu lakukan disini.</p>
 

@@ -15,7 +15,8 @@ class PostController extends Controller {
      * Display a listing of the resource.
      */
     public function index(Request $request): Response|View {
-        $posts = Post::all();
+        // $posts = Post::all();
+        $posts = [];
 
         return Inertia::render('Posts/Index', compact(
             'posts',

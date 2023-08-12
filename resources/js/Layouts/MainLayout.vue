@@ -3,7 +3,7 @@
 import Navbar from '@/Components/Navbar.vue';
 import BottomNav from '@/Components/BottomNav.vue';
 
-const props = defineProps({
+defineProps({
   paths: { type: Array }
 });
 
