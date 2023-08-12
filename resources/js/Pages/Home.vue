@@ -1,47 +1,22 @@
 <script setup>
 
 import MainLayout from '@/Layouts/MainLayout.vue';
-import Card from '@/Components/Card.vue';
 //import PrimaryButton from '@/Components/PrimaryButton.vue';
 //import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
-  title: { type: String,
-    default: 'All Posts',
-  },
-  posts: {
-    type: Array,
-    default: [],
-  },
-  paths: {
-    type: Array,
-    default: [
-      { url: route('posts.index'), title: 'Artikel' },
-      { title: 'All' },
-    ],
-  },
+  post: {
+    type: Object,
+  }
 });
 
 </script>
 
 <template>
-<Main-Layout :paths="paths">
+<Main-Layout>
 
-<Head :title="title" />
-
-<div class="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-  <div v-for="post in posts" :key="post.id">
-    <Card :url="route('posts.show', post.id)" image="ruw.jpg">
-      <template #card-title>
-        {{ post.title }}
-      </template>
-      <template #card-body>
-        {{ post.body }}
-      </template>
-    </Card>
-  </div>
-</div>
+<Head title="Beranda" />
 
 <section class="dark:bg-gray-900">
   <div class="px-4 max-w-screen-xl md:px-12 lg:px-16">

@@ -8,11 +8,14 @@ use App\Http\Controllers\ {
 };
 // use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-// use Inertia\Inertia;
+use Inertia\Inertia;
+use Inertia\Response;
 
-Route::view('/home', 'home', [
-    'title' => 'Home',
-])->name('home');
+Route::get('/home', function (): Response {
+    return Inertia::render('Home', [
+        'title' => 'Home',
+    ]);
+})->name('home');
 
 Route::controller(TutorialController::class)->prefix('/tutorial')->name('tutorial.')->group(function () {
     Route::get('/', 'index')->name('index');

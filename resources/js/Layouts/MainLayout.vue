@@ -3,10 +3,14 @@
 import Navbar from '@/Components/Navbar.vue';
 import BottomNav from '@/Components/BottomNav.vue';
 
+const props = defineProps({
+  paths: { type: Array }
+});
+
 </script>
 
 <template>
-  <Navbar />
+  <Navbar :paths="paths" />
 
   <slot />
 
