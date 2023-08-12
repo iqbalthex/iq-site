@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->foreignUlid('post_ulid')->constrained('posts', 'ulid');
+            $table->foreignId('post_id')->constrained();
             $table->unsignedBigInteger('comment_id')->nullable();
             $table->longText('body')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

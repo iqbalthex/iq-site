@@ -1,16 +1,13 @@
 <?php
 
-// use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ {
   CategoryController,
   LearnController,
   PostController,
   TutorialController,
 };
-// use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-use Inertia\Response;
+use Inertia\ { Inertia, Response };
 
 Route::get('/home', function (): Response {
     return Inertia::render('Home', [
@@ -18,42 +15,10 @@ Route::get('/home', function (): Response {
     ]);
 })->name('home');
 
-Route::controller(TutorialController::class)->prefix('/tutorials')->name('tutorials.')->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/{post}', 'show')->name('show');
-});
+// Route::controller(CategoryController::class)->prefix('/categories')->name('categories.')->group(function () {
+    // Route::get('/', 'index')->name('index');
+// });
 
-Route::controller(LearnController::class)->prefix('/learns')->name('learns.')->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/{post}', 'show')->name('show');
-});
-
-Route::controller(CategoryController::class)->prefix('/categories')->name('categories.')->group(function () {
-    Route::get('/', 'index')->name('index');
-});
-
-// Route::resource('tutorial', TutorialController::class)->only('index', 'show');
-Route::resource('posts', PostController::class);
-
-/*
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-require __DIR__.'/auth.php';
-*/
+Route::resource('posts', PostController::class)->only('index', 'show');
+Route::resource('learns', LearnController::class)->only('index', 'show');
+Route::resource('tutorials', TutorialController::class)->only('index', 'show');

@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\ {
-  Concerns\HasUlids,
   Factories\HasFactory,
   Model,
   Relations\BelongsTo,
@@ -12,7 +11,7 @@ use Illuminate\Database\Eloquent\ {
 };
 
 class Post extends Model {
-    use HasFactory, HasUlids, SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that aren't mass assignable.
@@ -43,7 +42,7 @@ class Post extends Model {
      * Get the route key for the model.
      */
     public function getRouteKeyName(): string {
-        return 'ulid';
+        return 'slug';
     }
 
     public function user(): BelongsTo {
