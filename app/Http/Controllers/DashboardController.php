@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\UpdatePostTags;
-use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class CategoryController extends Controller {
+class DashboardController extends Controller {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): Response|View {
-        //
+    public function index(): Response {
+        return Inertia::render('Dashboard', [
+            'title' => 'Dashboard',
+            'name' => 'iqbal',
+        ]);
     }
 
     /**
@@ -28,40 +29,35 @@ class CategoryController extends Controller {
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, UpdatePostTags $updatePostTags): RedirectResponse {
-        $newTags = Category::select('slug')->get()
-            ->map(fn ($value) => $value->slug)
-            ->merge([ $request->name ])
-            ->toArray();
-
-        $updatePostTags($newTags);
+    public function store(Request $request): RedirectResponse {
+        
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Category $category): View {
+    public function show(): View {
         //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category): View {
+    public function edit(): View {
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category): RedirectResponse {
+    public function update(Request $request): RedirectResponse {
         //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category): RedirectResponse {
+    public function destroy(): RedirectResponse {
         //
     }
 }
