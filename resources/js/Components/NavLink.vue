@@ -1,29 +1,64 @@
 <script setup>
 
 import { computed } from 'vue';
+import { Link } from '@inertiajs/vue3';
 
 const props = defineProps({
   href: {
     type: String,
-    required: true,
   },
   active: {
     type: Boolean,
   },
 });
 
-const isActive = computed(() => props.active
-  ? ''
-  : 'bg-white'
+const classes = computed(() => props.active
+  ? 'text-violet-600 bg-gray-50 pointer-events-none'
+  : 'text-gray-100 tracking-tight hover:text-yellow-200 hover:tracking-normal cursor-pointer transition-all duration-150 ease-in-out'
 );
 
 </script>
 
 <template>
-  <li style="list-style: none">
-    <a :href="href" :class="isActive"
-      class="block py-1 px-3 text-gray-400 rounded-lg hover:shadow hover:bg-violet-200/25 md:py-1 md:hover:bg-violet-100/50 md:hover:text-violet-600 md:dark:hover:text-blue-500">
-      <slot />
-    </a>
-  </li>
+  <a :class="classes"
+    class="relative block w-full pl-3 py-2 text-lg font-medium rounded-l-full">
+    <b :class="active ? 'block' : 'hidden'" class="-top-3" style="transform-origin: bottom"></b>
+    <b :class="active ? 'block' : 'hidden'" class="-bottom-3" style="transform-origin: top"></b>
+    <slot />
+  </a>
 </template>
+
+<style scoped>
+
+a:not(:last-child) {
+  @apply mb-0.5;
+}
+
+b {
+  @apply absolute right-0 w-3 h-3 bg-gray-50;
+  animation: active .4s forwards;
+}
+
+b::before {
+  @apply absolute w-3 h-3 bg-violet-600 border-none;
+  content: "";
+}
+
+b:nth-child(1)::before {
+  @apply rounded-br-full;
+}
+
+b:nth-child(2)::before {
+  @apply rounded-tr-full;
+}
+
+@keyframes active {
+  0% {
+    transform: scaleY(0);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+</style>
