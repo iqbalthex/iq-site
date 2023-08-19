@@ -17,7 +17,7 @@ export default {
             },
         },
         minWidth: {
-            '20': '5rem',
+            '14': '3.5rem',
             '60': '15rem',
         },
     },

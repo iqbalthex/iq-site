@@ -10,6 +10,9 @@ const props = defineProps({
   active: {
     type: Boolean,
   },
+  sidebarOpen: {
+    type: Boolean,
+  },
 });
 
 const classes = computed(() => props.active
@@ -21,11 +24,11 @@ const classes = computed(() => props.active
 
 <template>
   <div :class="classes"
-    class="relative w-full pl-3 py-2 text-lg font-medium rounded-l-full">
-    <b :class="active ? 'block' : 'hidden'" class="-top-3" style="transform-origin: bottom"></b>
-    <b :class="active ? 'block' : 'hidden'" class="-bottom-3" style="transform-origin: top"></b>
-    <a :class="active ? 'text-gray-800' : 'text-gray-200'"
-      class="inline-flex items-center gap-2 group-hover:text-yellow-200 group-hover:tracking-normal transition-all duration-150 ease-in-out">
+    class="relative pl-3 py-2 text-lg font-medium rounded-l-xl">
+    <b v-show="active" class="-top-3" style="transform-origin: bottom"></b>
+    <b v-show="active" class="-bottom-3" style="transform-origin: top"></b>
+    <a :class="active ? 'text-orange-600' : 'text-gray-200'"
+      class="w-max flex items-center gap-4 group-hover:text-yellow-200 group-hover:tracking-normal transition-all duration-150 ease-in-out">
       <slot name="icon" />
       <slot />
     </a>
@@ -45,11 +48,11 @@ b::before {
 }
 
 b:nth-child(1)::before {
-  @apply rounded-br-full;
+  @apply rounded-br-xl;
 }
 
 b:nth-child(2)::before {
-  @apply rounded-tr-full;
+  @apply rounded-tr-xl;
 }
 
 @keyframes active {
@@ -59,10 +62,6 @@ b:nth-child(2)::before {
   100% {
     transform: scaleY(1);
   }
-}
-
-.active svg.text-gray-800 {
-  @apply text-gray-200;
 }
 
 </style>

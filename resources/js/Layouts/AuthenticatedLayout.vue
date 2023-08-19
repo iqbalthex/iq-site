@@ -9,11 +9,13 @@ import BookIcon     from '@/Components/Icons/BookIcon.vue';
 import BuildingIcon from '@/Components/Icons/BuildingIcon.vue';
 import FileLinesIcon from '@/Components/Icons/FileLinesIcon.vue';
 import FilePenIcon   from '@/Components/Icons/FilePenIcon.vue';
-import HomeIcon  from '@/Components/Icons/HomeIcon.vue';
-import StarIcon  from '@/Components/Icons/StarIcon.vue';
+import HomeIcon from '@/Components/Icons/HomeIcon.vue';
+import StarIcon from '@/Components/Icons/StarIcon.vue';
+import TableColumnIcon from '@/Components/Icons/TableColumnIcon.vue';
 import UsersIcon from '@/Components/Icons/UsersIcon.vue';
 
-const sidebarOpen = ref(true);
+const sidebarOpen = ref(false);
+const hambButton = ref(null);
 const current = ref('dashboard');
 
 const form = useForm({});
@@ -22,30 +24,42 @@ function submit() {
   // form.post(route('logout'));
 }
 
+function closeSidebar({ clientX, clientY }) {
+  const btnClientRect = hambButton.value.getBoundingClientRect();
+
+  if (
+    clientX < btnClientRect.left || clientX > btnClientRect.right  ||
+    clientY < btnClientRect.top  || clientY > btnClientRect.bottom
+  ) {
+    sidebarOpen.value = false;
+  }
+}
+
 </script>
 
 <template>
 
 <div>
-  <div class="min-h-screen bg-gray-50" style="display: flex">
-    <nav :class="sidebarOpen ? 'min-w-60' : 'min-w-20'"
-      class="overflow-hidden transition-all duration-300">
-      <div class="w-60 min-h-screen bg-violet-600">
+  <div class="flex min-h-screen bg-gray-50">
+    <nav :class="sidebarOpen ? 'min-w-60' : 'min-w-14'"
+      class="nav-sidebar overflow-x-hidden">
+      <div class="min-h-screen bg-violet-600">
         <!-- Logo -->
-        <div class="pl-4">
+        <div class="pl-2">
           <NavLink :href="route('dashboard')">
+            <HomeIcon #icon />
             Raport
           </NavLink>
         </div>
 
-        <div class="pl-4 py-3 border-t border-gray-200">
+        <div class="pl-2 py-3 border-t border-gray-200">
           <!-- <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')"> -->
 
           <NavLink
             :href="route('dashboard')"
             :active="current === 'dashboard'"
             @click="current = 'dashboard'">
-            <HomeIcon #icon />
+            <TableColumnIcon #icon />
             Dashboard
           </NavLink>
           <NavLink
@@ -101,22 +115,25 @@ function submit() {
           </NavLink>
         </div>
 
-        <div class="pl-4 pt-3 border-t border-gray-200">
-          <form @submit.prevent="submit">
-            <button type="submit"
-              class="w-full pl-3 text-left text-lg text-gray-100 font-medium tracking-tight hover:text-yellow-200 hover:tracking-normal cursor-pointer transition duration-150 ease-in-out">
-              Log Out
-            </button>
-          </form>
+        <div class="pl-2 pt-3 border-t border-gray-200">
+          <NavLink>
+            <FileLinesIcon #icon />
+            <form @submit.prevent="submit">
+              <button type="submit">
+                Log Out
+              </button>
+            </form>
+          </NavLink>
         </div>
       </div>
     </nav>
 
-    <div class="w-full">
+    <div :class="sidebarOpen && 'open'" @click="closeSidebar"
+      class="main-container">
       <header v-if="$slots.header">
-        <div class="flex items-center py-0.5 border-b border-gray-300">
+        <div class="flex items-center py-1 border-b border-gray-200">
           <div class="mx-2">
-            <button @click="sidebarOpen = !sidebarOpen"
+            <button @click="sidebarOpen = !sidebarOpen" ref="hambButton"
               class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
               <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                 <path :class="{ hidden: sidebarOpen, inlineFlex: !sidebarOpen }"
@@ -141,3 +158,20 @@ function submit() {
 </div>
 
 </template>
+
+<style scoped>
+
+.nav-sidebar {
+  transition: min-width .3s;
+}
+
+.main-container {
+  max-width: calc(100% - 3.5rem);
+  transition: max-width .3s;
+}
+
+.main-container.open {
+  max-width: calc(100% - 15rem);
+}
+
+</style>
