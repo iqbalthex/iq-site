@@ -5,6 +5,7 @@ import { useForm } from '@inertiajs/vue3';
 
 import NavLink from '@/Components/NavLink.vue';
 
+const sidebarOpen = ref(false);
 const current = ref('dashboard');
 
 const form = useForm({});
@@ -19,8 +20,9 @@ function submit() {
 
 <div>
   <div class="flex min-h-screen bg-gray-50">
-    <nav>
-      <div class="w-60 min-h-screen bg-violet-600 overflow-hidden">
+    <nav :class="sidebarOpen ? 'w-60' : 'w-20'"
+      class="overflow-hidden transition-all duration-300">
+      <div class="w-60 min-h-screen bg-violet-600">
         <!-- Logo -->
         <div class="pl-4">
           <NavLink :href="route('dashboard')">
@@ -104,15 +106,31 @@ function submit() {
       </div>
     </nav>
 
-    <header v-if="$slots.header">
-      <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <slot name="header" />
-      </div>
-    </header>
+    <div class="max-w-6xl border border-red-500">
+      <header v-if="$slots.header" class="mxauto">
+        <div class="flex w-full py-6 px-4 sm:px-6 lg:px-8 border border-black">
+          <div class="-mr-2">
+            <button @click="sidebarOpen = !sidebarOpen"
+              class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+              <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                <path :class="{ hidden: sidebarOpen, inlineFlex: !sidebarOpen }"
+                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16" />
+                <path :class="{ hidden: !sidebarOpen, inlineFlex: sidebarOpen }"
+                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
 
-    <!--main>
-      <slot />
-    </main-->
+          <slot name="header" />
+        </div>
+      </header>
+
+      <!--main>
+        <slot />
+      </main-->
+    </div>
   </div>
 </div>
 
