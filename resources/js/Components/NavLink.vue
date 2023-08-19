@@ -14,25 +14,25 @@ const props = defineProps({
 
 const classes = computed(() => props.active
   ? 'text-violet-600 bg-gray-50 pointer-events-none'
-  : 'text-gray-100 tracking-tight hover:text-yellow-200 hover:tracking-normal cursor-pointer transition-all duration-150 ease-in-out'
+  : 'text-gray-100 tracking-tight cursor-pointer group'
 );
 
 </script>
 
 <template>
-  <a :class="classes"
-    class="relative block w-full pl-3 py-2 text-lg font-medium rounded-l-full">
+  <div :class="classes"
+    class="relative w-full pl-3 py-2 text-lg font-medium rounded-l-full">
     <b :class="active ? 'block' : 'hidden'" class="-top-3" style="transform-origin: bottom"></b>
     <b :class="active ? 'block' : 'hidden'" class="-bottom-3" style="transform-origin: top"></b>
-    <slot />
-  </a>
+    <a :class="active ? 'text-gray-800' : 'text-gray-200'"
+      class="inline-flex items-center gap-2 group-hover:text-yellow-200 group-hover:tracking-normal transition-all duration-150 ease-in-out">
+      <slot name="icon" />
+      <slot />
+    </a>
+  </div>
 </template>
 
 <style scoped>
-
-a:not(:last-child) {
-  @apply mb-0.5;
-}
 
 b {
   @apply absolute right-0 w-3 h-3 bg-gray-50;
@@ -59,6 +59,10 @@ b:nth-child(2)::before {
   100% {
     transform: scaleY(1);
   }
+}
+
+.active svg.text-gray-800 {
+  @apply text-gray-200;
 }
 
 </style>
