@@ -26,12 +26,12 @@ const classes = computed(() => props.active
   <div :class="classes"
     class="relative pl-3 py-2 text-lg font-medium rounded-l-xl">
     <b v-show="active" class="-top-3" style="transform-origin: bottom"></b>
-    <b v-show="active" class="-bottom-3" style="transform-origin: top"></b>
     <a :class="active ? 'text-orange-600' : 'text-gray-200'"
       class="w-max flex items-center gap-4 group-hover:text-yellow-200 group-hover:tracking-normal transition-all duration-150 ease-in-out">
       <slot name="icon" />
       <slot />
     </a>
+    <b v-show="active" class="-bottom-3" style="transform-origin: top"></b>
   </div>
 </template>
 
@@ -42,16 +42,29 @@ b {
   animation: active .4s forwards;
 }
 
+.dropdown-trigger b:last-child::before {
+  @apply bg-violet-800;
+}
+
+.dropdown-item b::before {
+  @apply bg-violet-800;
+}
+
+.dropdown-item:first-child b:first-child {
+  @apply hidden;
+}
+
+.dropdown-item:last-child b:last-child::before,
 b::before {
-  @apply absolute w-3 h-3 bg-violet-600 border-none;
+  @apply absolute w-3 h-3 bg-violet-600;
   content: "";
 }
 
-b:nth-child(1)::before {
+b:first-child::before {
   @apply rounded-br-xl;
 }
 
-b:nth-child(2)::before {
+b:last-child::before {
   @apply rounded-tr-xl;
 }
 

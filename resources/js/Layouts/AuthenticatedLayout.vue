@@ -3,6 +3,7 @@
 import { ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
+import DropdownGroup from '@/Components/DropdownGroup.vue';
 import NavLink from '@/Components/NavLink.vue';
 
 import BookIcon     from '@/Components/Icons/BookIcon.vue';
@@ -14,9 +15,10 @@ import StarIcon from '@/Components/Icons/StarIcon.vue';
 import TableColumnIcon from '@/Components/Icons/TableColumnIcon.vue';
 import UsersIcon from '@/Components/Icons/UsersIcon.vue';
 
-const sidebarOpen = ref(false);
+const sidebarOpen = ref(true);
 const hambButton = ref(null);
 const current = ref('dashboard');
+const whichOpen = ref('');
 
 const form = useForm({});
 
@@ -28,7 +30,7 @@ function closeSidebar({ clientX, clientY }) {
   const btnClientRect = hambButton.value.getBoundingClientRect();
 
   if (
-    clientX < btnClientRect.left || clientX > btnClientRect.right  ||
+    clientX < btnClientRect.left || clientX > btnClientRect.right ||
     clientY < btnClientRect.top  || clientY > btnClientRect.bottom
   ) {
     sidebarOpen.value = false;
@@ -43,7 +45,7 @@ function closeSidebar({ clientX, clientY }) {
   <div class="flex min-h-screen bg-gray-50">
     <nav :class="sidebarOpen ? 'min-w-60' : 'min-w-14'"
       class="nav-sidebar overflow-x-hidden">
-      <div class="min-h-screen bg-violet-600">
+      <div class="min-h-screen max-h-screen bg-violet-600 overflow-y-scroll">
         <!-- Logo -->
         <div class="pl-2">
           <NavLink :href="route('dashboard')">
@@ -92,20 +94,77 @@ function closeSidebar({ clientX, clientY }) {
             Ekstrakurikuler
           </NavLink>
 
-          <NavLink
-            :href="route('profile.edit')"
-            :active="current === 'profile5'"
-            @click="current = 'profile5'">
-            <FilePenIcon #icon />
-            Penilaian Formatif
-          </NavLink>
-          <NavLink
-            :href="route('profile.edit')"
-            :active="current === 'profile6'"
-            @click="current = 'profile6'">
-            <FilePenIcon #icon />
-            Penilaian Sumatif
-          </NavLink>
+          <Dropdown-Group :item-count="3">
+            <template #dropdown-trigger="{ toggleOpen }">
+              <NavLink @click="toggleOpen"
+                :active="current.startsWith('formative')"
+                class="dropdown-trigger">
+                <FilePenIcon #icon />
+                Penilaian Formatif
+              </NavLink>
+            </template>
+
+            <template #dropdown-items>
+              <NavLink
+                :active="current === 'formative.big'"
+                @click="current = 'formative.big'"
+                class="dropdown-item">
+                <FilePenIcon #icon />
+                B ing
+              </NavLink>
+              <NavLink
+                :active="current === 'formative.bin'"
+                @click="current = 'formative.bin'"
+                class="dropdown-item">
+                <FilePenIcon #icon />
+                B indo
+              </NavLink>
+              <NavLink
+                :active="current === 'formative.mtk'"
+                @click="current = 'formative.mtk'"
+                class="dropdown-item">
+                <FilePenIcon #icon />
+                MTK
+              </NavLink>
+            </template>
+          </Dropdown-Group>
+
+
+          <Dropdown-Group :item-count="3">
+            <template #dropdown-trigger="{ toggleOpen }">
+              <NavLink @click="toggleOpen"
+                :active="current.startsWith('sumative')"
+                class="dropdown-trigger">
+                <FilePenIcon #icon />
+                Penilaian Sumatif
+              </NavLink>
+            </template>
+
+            <template #dropdown-items>
+              <NavLink
+                :active="current === 'sumative.big'"
+                @click="current = 'sumative.big'"
+                class="dropdown-item">
+                <FilePenIcon #icon />
+                B ing
+              </NavLink>
+              <NavLink
+                :active="current === 'sumative.bin'"
+                @click="current = 'sumative.bin'"
+                class="dropdown-item">
+                <FilePenIcon #icon />
+                B indo
+              </NavLink>
+              <NavLink
+                :active="current === 'sumative.mtk'"
+                @click="current = 'sumative.mtk'"
+                class="dropdown-item">
+                <FilePenIcon #icon />
+                MTK
+              </NavLink>
+            </template>
+          </Dropdown-Group>
+
           <NavLink
             :href="route('profile.edit')"
             :active="current === 'profile7'"
@@ -172,6 +231,10 @@ function closeSidebar({ clientX, clientY }) {
 
 .main-container.open {
   max-width: calc(100% - 15rem);
+}
+
+.overflow-y-scroll::-webkit-scrollbar {
+  @apply hidden;
 }
 
 </style>
