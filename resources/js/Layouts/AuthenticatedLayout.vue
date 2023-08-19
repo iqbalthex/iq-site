@@ -1,26 +1,35 @@
 <script setup>
 
-import { ref } from 'vue';
+import { ref }     from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
 import DropdownGroup from '@/Components/DropdownGroup.vue';
-import NavLink from '@/Components/NavLink.vue';
+import NavLink       from '@/Components/NavLink.vue';
 
-import BookIcon     from '@/Components/Icons/BookIcon.vue';
-import BuildingIcon from '@/Components/Icons/BuildingIcon.vue';
-import FileLinesIcon from '@/Components/Icons/FileLinesIcon.vue';
-import FilePenIcon   from '@/Components/Icons/FilePenIcon.vue';
-import HomeIcon from '@/Components/Icons/HomeIcon.vue';
-import StarIcon from '@/Components/Icons/StarIcon.vue';
+import BookIcon        from '@/Components/Icons/BookIcon.vue';
+import BuildingIcon    from '@/Components/Icons/BuildingIcon.vue';
+import FileLinesIcon   from '@/Components/Icons/FileLinesIcon.vue';
+import FilePenIcon     from '@/Components/Icons/FilePenIcon.vue';
+import HomeIcon        from '@/Components/Icons/HomeIcon.vue';
+import StarIcon        from '@/Components/Icons/StarIcon.vue';
 import TableColumnIcon from '@/Components/Icons/TableColumnIcon.vue';
-import UsersIcon from '@/Components/Icons/UsersIcon.vue';
+import UsersIcon       from '@/Components/Icons/UsersIcon.vue';
 
 const sidebarOpen = ref(true);
-const hambButton = ref(null);
-const current = ref('dashboard');
-const whichOpen = ref('');
+const hambButton  = ref(null);
+const current     = ref('dashboard');
+const whichOpen   = ref('');
 
-const form = useForm({});
+const studies = [
+  'Bahasa Indonesia',
+  'Matematika',
+  'IPAS',
+  'Pendidikan Pancasila',
+  'Bahasa Inggris',
+  'Seni Budaya',
+];
+
+// const form = useForm({});
 
 function submit() {
   // form.post(route('logout'));
@@ -48,56 +57,63 @@ function closeSidebar({ clientX, clientY }) {
       <div class="min-h-screen max-h-screen bg-violet-600 overflow-y-scroll">
         <!-- Logo -->
         <div class="pl-2">
-          <NavLink :href="route('dashboard')">
+          <NavLink
+            :href="route('dashboard')">
             <HomeIcon #icon />
             Raport
           </NavLink>
         </div>
 
         <div class="pl-2 py-3 border-t border-gray-200">
-          <!-- <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')"> -->
+          <!-- <ResponsiveNavLink :href="route('dashboard')" :is-active="route().current('dashboard')"> -->
 
           <NavLink
             :href="route('dashboard')"
-            :active="current === 'dashboard'"
+            :is-active="current === 'dashboard'"
             @click="current = 'dashboard'">
             <TableColumnIcon #icon />
             Dashboard
           </NavLink>
+
           <NavLink
             :href="route('profile.edit')"
-            :active="current === 'profile'"
-            @click="current = 'profile'">
+            :is-active="current === 'school'"
+            @click="current = 'school'">
             <BuildingIcon #icon />
             Data Sekolah
           </NavLink>
+
           <NavLink
             :href="route('profile.edit')"
-            :active="current === 'profile2'"
-            @click="current = 'profile2'">
+            :is-active="current === 'students'"
+            @click="current = 'students'">
             <UsersIcon #icon />
             Data Siswa
           </NavLink>
 
           <NavLink
             :href="route('profile.edit')"
-            :active="current === 'profile3'"
-            @click="current = 'profile3'">
+            :is-active="current === 'objective'"
+            @click="current = 'objective'">
             <BookIcon #icon />
             Tujuan Pembelajaran
           </NavLink>
+
           <NavLink
             :href="route('profile.edit')"
-            :active="current === 'profile4'"
-            @click="current = 'profile4'">
+            :is-active="current === 'extra'"
+            @click="current = 'extra'">
             <StarIcon #icon />
             Ekstrakurikuler
           </NavLink>
 
-          <Dropdown-Group :item-count="3">
-            <template #dropdown-trigger="{ toggleOpen }">
-              <NavLink @click="toggleOpen"
-                :active="current.startsWith('formative')"
+          <Dropdown-Group
+            :is-active="current.startsWith('formative')"
+            :item-count="studies.length">
+            <template #dropdown-trigger>
+              <NavLink
+                :is-active="current.startsWith('formative')"
+                @click="current = 'formative'"
                 class="dropdown-trigger">
                 <FilePenIcon #icon />
                 Penilaian Formatif
@@ -106,34 +122,25 @@ function closeSidebar({ clientX, clientY }) {
 
             <template #dropdown-items>
               <NavLink
-                :active="current === 'formative.big'"
-                @click="current = 'formative.big'"
+                v-for="study, index in studies"
+                :key="index"
+                :is-active="current === `formative.${study}`"
+                @click="current = `formative.${study}`"
                 class="dropdown-item">
                 <FilePenIcon #icon />
-                B ing
-              </NavLink>
-              <NavLink
-                :active="current === 'formative.bin'"
-                @click="current = 'formative.bin'"
-                class="dropdown-item">
-                <FilePenIcon #icon />
-                B indo
-              </NavLink>
-              <NavLink
-                :active="current === 'formative.mtk'"
-                @click="current = 'formative.mtk'"
-                class="dropdown-item">
-                <FilePenIcon #icon />
-                MTK
+                {{ study }}
               </NavLink>
             </template>
           </Dropdown-Group>
 
 
-          <Dropdown-Group :item-count="3">
-            <template #dropdown-trigger="{ toggleOpen }">
-              <NavLink @click="toggleOpen"
-                :active="current.startsWith('sumative')"
+          <Dropdown-Group
+            :is-active="current.startsWith('sumative')"
+            :item-count="studies.length">
+            <template #dropdown-trigger>
+              <NavLink
+                :is-active="current.startsWith('sumative')"
+                @click="current = 'sumative'"
                 class="dropdown-trigger">
                 <FilePenIcon #icon />
                 Penilaian Sumatif
@@ -142,32 +149,20 @@ function closeSidebar({ clientX, clientY }) {
 
             <template #dropdown-items>
               <NavLink
-                :active="current === 'sumative.big'"
-                @click="current = 'sumative.big'"
+                v-for="study, index in studies"
+                :key="index"
+                :is-active="current === `sumative.${study}`"
+                @click="current = `sumative.${study}`"
                 class="dropdown-item">
                 <FilePenIcon #icon />
-                B ing
-              </NavLink>
-              <NavLink
-                :active="current === 'sumative.bin'"
-                @click="current = 'sumative.bin'"
-                class="dropdown-item">
-                <FilePenIcon #icon />
-                B indo
-              </NavLink>
-              <NavLink
-                :active="current === 'sumative.mtk'"
-                @click="current = 'sumative.mtk'"
-                class="dropdown-item">
-                <FilePenIcon #icon />
-                MTK
+                {{ study }}
               </NavLink>
             </template>
           </Dropdown-Group>
 
           <NavLink
             :href="route('profile.edit')"
-            :active="current === 'profile7'"
+            :is-active="current === 'profile7'"
             @click="current = 'profile7'">
             <FileLinesIcon #icon />
             Cetak Raport
