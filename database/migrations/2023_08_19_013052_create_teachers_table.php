@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('teachers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('post_id')->constrained();
-            $table->unsignedBigInteger('comment_id')->nullable();
-            $table->longText('body')->nullable();
+            $table->string('name');
+            $table->tinyInteger('class');
+            $table->char('phase', 2)->nullable();
+            $table->tinyInteger('semester')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('teachers');
     }
 };
