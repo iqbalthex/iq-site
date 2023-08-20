@@ -6,11 +6,14 @@ import { useForm } from '@inertiajs/vue3';
 import DropdownGroup from '@/Components/DropdownGroup.vue';
 import NavLink       from '@/Components/NavLink.vue';
 
-import BookIcon        from '@/Components/Icons/BookIcon.vue';
-import BuildingIcon    from '@/Components/Icons/BuildingIcon.vue';
-import FileLinesIcon   from '@/Components/Icons/FileLinesIcon.vue';
-import FilePenIcon     from '@/Components/Icons/FilePenIcon.vue';
-import HomeIcon        from '@/Components/Icons/HomeIcon.vue';
+import AngleLeftIcon  from '@/Components/Icons/AngleLeftIcon.vue';
+import AngleRightIcon from '@/Components/Icons/AngleRightIcon.vue';
+import BookIcon       from '@/Components/Icons/BookIcon.vue';
+import BuildingIcon  from '@/Components/Icons/BuildingIcon.vue';
+import FileLinesIcon from '@/Components/Icons/FileLinesIcon.vue';
+import FilePenIcon   from '@/Components/Icons/FilePenIcon.vue';
+import HomeIcon      from '@/Components/Icons/HomeIcon.vue';
+import LogoutIcon    from '@/Components/Icons/ArrowRightBracketIcon.vue';
 import StarIcon        from '@/Components/Icons/StarIcon.vue';
 import TableColumnIcon from '@/Components/Icons/TableColumnIcon.vue';
 import UsersIcon       from '@/Components/Icons/UsersIcon.vue';
@@ -65,7 +68,7 @@ function closeSidebar({ clientX, clientY }) {
         </div>
 
         <div class="pl-2 py-3 border-t border-gray-200">
-          <!-- <ResponsiveNavLink :href="route('dashboard')" :is-active="route().current('dashboard')"> -->
+          <!-- "route().current('dashboard')" -->
 
           <NavLink
             :href="route('dashboard')"
@@ -119,6 +122,7 @@ function closeSidebar({ clientX, clientY }) {
                 Penilaian Formatif
               </NavLink>
             </template>
+            
 
             <template #dropdown-items>
               <NavLink
@@ -171,7 +175,7 @@ function closeSidebar({ clientX, clientY }) {
 
         <div class="pl-2 pt-3 border-t border-gray-200">
           <NavLink>
-            <FileLinesIcon #icon />
+            <LogoutIcon #icon class="rotate-180" />
             <form @submit.prevent="submit">
               <button type="submit">
                 Log Out
@@ -186,17 +190,11 @@ function closeSidebar({ clientX, clientY }) {
       class="main-container">
       <header v-if="$slots.header">
         <div class="flex items-center py-1 border-b border-gray-200">
-          <div class="mx-2">
+          <div class="ml-2 mr-8">
             <button @click="sidebarOpen = !sidebarOpen" ref="hambButton"
               class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-              <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                <path :class="{ hidden: sidebarOpen, inlineFlex: !sidebarOpen }"
-                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M4 6h16M4 12h16M4 18h16" />
-                <path :class="{ hidden: !sidebarOpen, inlineFlex: sidebarOpen }"
-                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M6 18L18 6M6 6l12 12" />
-              </svg>
+              <AngleLeftIcon v-show="sidebarOpen" />
+              <AngleRightIcon v-show="!sidebarOpen" />
             </button>
           </div>
 
