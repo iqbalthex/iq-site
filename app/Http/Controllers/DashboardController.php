@@ -13,10 +13,7 @@ class DashboardController extends Controller {
      * Display a listing of the resource.
      */
     public function index(): Response {
-        return Inertia::render('Dashboard', [
-            'title' => 'Dashboard',
-            'name' => 'iqbal',
-        ]);
+        return Inertia::render('MainContainer');
     }
 
     /**
