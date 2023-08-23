@@ -35,35 +35,33 @@ function closeSidebar({ clientX, clientY }) {
 
 <template>
 
-<div>
-  <div class="flex min-h-screen bg-gray-50">
-    <slot name="sidebar">
-      <Sidebar
-        :sidebarOpen="sidebarOpen"
-        :changeCurrent="changeCurrent"
-        :current="current" />
-    </slot>
+<div class="flex min-h-screen bg-gray-50">
+  <slot name="sidebar">
+    <Sidebar
+      :sidebarOpen="sidebarOpen"
+      :changeCurrent="changeCurrent"
+      :current="current" />
+  </slot>
 
-    <div :class="sidebarOpen && 'open'" @click="closeSidebar"
-      class="main-container">
-      <header v-if="$slots.header">
-        <div class="flex items-center py-1 border-b border-gray-200">
-          <div class="ml-2 mr-8">
-            <button @click="sidebarOpen = !sidebarOpen" ref="hambButton"
-              class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-              <AngleLeftIcon v-show="sidebarOpen" />
-              <AngleRightIcon v-show="!sidebarOpen" />
-            </button>
-          </div>
-
-          <slot name="header" />
+  <div :class="sidebarOpen && 'open'" @click="closeSidebar"
+    class="main-container">
+    <header v-if="$slots.header">
+      <div class="flex items-center py-1 border-b border-gray-200">
+        <div class="ml-2 mr-8">
+          <button @click="sidebarOpen = !sidebarOpen" ref="hambButton"
+            class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+            <AngleLeftIcon v-show="sidebarOpen" />
+            <AngleRightIcon v-show="!sidebarOpen" />
+          </button>
         </div>
-      </header>
 
-      <main>
-        <slot name="main" :active-route="current" />
-      </main>
-    </div>
+        <slot name="header" />
+      </div>
+    </header>
+
+    <main>
+      <slot name="main" :active-route="current" />
+    </main>
   </div>
 </div>
 

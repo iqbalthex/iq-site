@@ -2,23 +2,24 @@
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
-// import { computed } from 'vue';
+import { defineAsyncComponent } from 'vue';
 
 const routes = {
-  'dashboard': {
-    // component: import('@/Components/Dashboard.vue'),
-    name: 'Dashboard da yo',
-    props: {}
-  },
-  'school': {
-    // component: import('@/Components/Dashboard.vue'),
-    name: 'School da yo',
-    props: {}
-  },
+  'dashboard': importPage('Dashboard'),
+  'school':    importPage('School'),
+  'students':  importPage('Students'),
+  'objective': importPage('Objective'),
+  'extra':     importPage('Extra'),
+  'formative': importPage('Formative'),
+  'sumative':  importPage('Sumative'),
+  'print.raport': importPage('PrintRaport'),
 };
 
-const getActiveRoute = routeName => {
-  return routes[routeName];
+const getActiveRoute = routeName => routes[routeName];
+
+
+function importPage(name) {
+  return defineAsyncComponent(() => import(`./${name}-Page.vue`));
 }
 
 </script>
@@ -34,16 +35,9 @@ const getActiveRoute = routeName => {
 
   <template #main="{ activeRoute }">
     <div class="py-2">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="overflow-hidden shadow-sm sm:rounded-lg">
-          <div class="p-4">
-            {{ getActiveRoute(activeRoute).name }}
-            <!-- <Suspense> -->
-              <!-- <component :is="activeRoute.component"></component> -->
-              <!-- <component :is="getActiveRoute(activeRoute).component"></component> -->
-            <!-- </Suspense> -->
-          </div>
-        </div>
+      <div class="max-w-7xl mx-auto p-4 overflow-hidden shadow-sm sm:rounded-lg sm:px-6 lg:px-8">
+        {{ activeRoute }}
+        <component :is="getActiveRoute(activeRoute)"></component>
       </div>
     </div>
   </template>
