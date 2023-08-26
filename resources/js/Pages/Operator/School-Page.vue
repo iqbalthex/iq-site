@@ -6,6 +6,6 @@
 
 <template>
 
-<div class="p-6 text-gray-900">School component</div>
+Operator School Page
 
 </template>

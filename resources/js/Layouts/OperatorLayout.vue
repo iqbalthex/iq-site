@@ -1,6 +1,6 @@
 <script setup>
 
-import { ref } from 'vue';
+import { ref }  from 'vue';
 import { Head } from '@inertiajs/vue3';
 
 import AngleLeftIcon  from '@/Components/Icons/AngleLeftIcon.vue';
@@ -15,6 +15,7 @@ function changeCurrent(name) {
   current.value = name;
 }
 
+/*
 function closeSidebar({ clientX, clientY }) {
   const btnClientRect = hambButton.value.getBoundingClientRect();
 
@@ -25,12 +26,11 @@ function closeSidebar({ clientX, clientY }) {
     sidebarOpen.value = false;
   }
 }
+*/
 
 </script>
 
 <template>
-
-<Head title="Operator Menu" />
 
 <div class="flex min-h-screen bg-gray-50">
   <slot name="sidebar"
@@ -49,9 +49,9 @@ function closeSidebar({ clientX, clientY }) {
             <AngleRightIcon v-show="!sidebarOpen" />
           </button>
         </div>
-      </div>
 
-      <slot name="header" />
+        <slot name="header" :title="current" />
+      </div>
     </header>
 
     <main>
