@@ -16,10 +16,6 @@ function changeCurrent(name) {
   current.value = name;
 }
 
-function submit() {
-  // form.post(route('logout'));
-}
-
 function closeSidebar({ clientX, clientY }) {
   const btnClientRect = hambButton.value.getBoundingClientRect();
 

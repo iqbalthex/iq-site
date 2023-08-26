@@ -8,12 +8,12 @@ use Illuminate\View\View;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class DashboardController extends Controller {
+class TeacherController extends Controller {
     /**
      * Display a listing of the resource.
      */
     public function index(): Response {
-        return Inertia::render('MainContainer');
+        return Inertia::render('Teacher/Index');
     }
 
     /**

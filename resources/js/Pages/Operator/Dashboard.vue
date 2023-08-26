@@ -7,8 +7,8 @@ import { onCreated, onMounted } from 'vue';
 // });
 
 // onMounted(() => {
-  // mapping data to view
-// });
+  // map data to view
+});
 
 </script>
 
