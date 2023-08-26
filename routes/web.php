@@ -1,17 +1,20 @@
 <?php
 
 use App\Http\Controllers\ {
-  DashboardController,
-  // FormativeController,
-  // SumativeController,
+  OperatorController,
+  // TeacherController,
 };
 use Illuminate\Support\Facades\Route;
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+Route::controller(OperatorController::class)->prefix('/operator')->name('operator.')->group(function () {
+    Route::get('/', 'index')->name('index');
+});
 
-// Route::get('/formative-score/{subject}'. [FormativeController::class, 'index'])->name('formative.score');
-// Route::get('/sumative-score/{subject}'. [SumativeController::class, 'index'])->name('sumative.score');
+// Route::controller(TeacherController::class)->prefix('/teacher')->name('teacher.')->group(function () {
+    // Route::get('/', 'index')->name('index');
+    // Route::get('/formative/{subject?}', 'formative')->name('formative');
+    // Route::get('/sumative/{subject?}', 'sumative')->name('sumative');
+// });
 
 Route::get('/profile/edit', function () {
     return 'profile';
