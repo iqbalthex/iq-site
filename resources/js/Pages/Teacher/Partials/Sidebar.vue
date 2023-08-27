@@ -66,8 +66,8 @@ const studies = [
       </Nav-Link>
 
       <Nav-Link
-        :is-active="current === 'extra'"
-        @click="changeCurrent('extra')">
+        :is-active="current === 'extras'"
+        @click="changeCurrent('extras')">
         <StarIcon #icon />
         Ekstrakurikuler
       </Nav-Link>

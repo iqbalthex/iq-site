@@ -1,7 +1,6 @@
 <script setup>
 
 import { ref }  from 'vue';
-import { Head } from '@inertiajs/vue3';
 
 import AngleLeftIcon  from '@/Components/Icons/AngleLeftIcon.vue';
 import AngleRightIcon from '@/Components/Icons/AngleRightIcon.vue';

@@ -14,6 +14,6 @@
 
 <template>
 
-Operator Dashboard
+Teacher Extras Page
 
 </template>

@@ -9,15 +9,10 @@ defineProps({
 import DropdownGroup from '@/Components/DropdownGroup.vue';
 import NavLink       from '@/Components/NavLink.vue';
 
-// import BookIcon      from '@/Components/Icons/BookIcon.vue';
 import BuildingIcon  from '@/Components/Icons/BuildingIcon.vue';
-// import FileLinesIcon from '@/Components/Icons/FileLinesIcon.vue';
-// import FilePenIcon   from '@/Components/Icons/FilePenIcon.vue';
 import HomeIcon      from '@/Components/Icons/HomeIcon.vue';
 import LogoutIcon    from '@/Components/Icons/ArrowRightBracketIcon.vue';
-// import StarIcon        from '@/Components/Icons/StarIcon.vue';
 import TableColumnIcon from '@/Components/Icons/TableColumnIcon.vue';
-// import UsersIcon       from '@/Components/Icons/UsersIcon.vue';
 
 </script>
 
