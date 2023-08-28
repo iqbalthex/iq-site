@@ -24,8 +24,6 @@ const getActiveRoute = routeName => routes[routeName];
 
 
 function importPage(name) {
-  // return defineAsyncComponent(() => import(`./${name}-Page.vue`));
-
   return defineAsyncComponent({
     loader: () => import(`./${name}-Page.vue`),
 
@@ -56,15 +54,10 @@ function importPage(name) {
   </template>
 
   <template #main="{ activeRoute }">
-    <div class="py-2">
-      <div class="max-w-7xl mx-auto p-4 overflow-hidden shadow-sm sm:rounded-lg sm:px-6 lg:px-8">
-        {{ activeRoute }}:
-        <div class="p-6 text-gray-900">
-          <KeepAlive>
-            <component :is="getActiveRoute(activeRoute)" />
-          </KeepAlive>
-        </div>
-      </div>
+    <div class="text-gray-900">
+      <KeepAlive>
+        <component :is="getActiveRoute(activeRoute)" />
+      </KeepAlive>
     </div>
   </template>
 </Teacher-Layout>
