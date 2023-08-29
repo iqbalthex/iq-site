@@ -10,7 +10,7 @@ Route::controller(OperatorController::class)->prefix('/operator')->name('operato
     Route::get('/', 'index')->name('index');
 });
 
-Route::controller(TeacherController::class)->prefix('/teacher')->name('teacher.')->group(function () {
+Route::controller(TeacherController::class)->prefix('/teacher')->name('teacher.')->middleware('auth')->group(function () {
     Route::get('/', 'index')->name('index');
     // Route::get('/formative/{subject?}', 'formative')->name('formative');
     // Route::get('/sumative/{subject?}', 'sumative')->name('sumative');

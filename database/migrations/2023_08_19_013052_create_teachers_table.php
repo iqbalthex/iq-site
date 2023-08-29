@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->string('name');
+            $table->foreignId('classroom_id')->constrained();
+            $table->foreignId('subject_id')->constrained();
             $table->tinyInteger('class');
             $table->char('phase', 2)->nullable();
             $table->tinyInteger('semester')->nullable();

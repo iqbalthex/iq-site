@@ -3,7 +3,8 @@
 defineProps({
   sidebarOpen:   { type: Boolean, required: true },
   changeCurrent: { type: Function },
-  current:       { type: String }
+  current:       { type: String },
+  subjects:      { type: Array }
 });
 
 import DropdownGroup from '@/Components/DropdownGroup.vue';
@@ -18,14 +19,14 @@ import StarIcon        from '@/Components/Icons/StarIcon.vue';
 import TableColumnIcon from '@/Components/Icons/TableColumnIcon.vue';
 import UsersIcon       from '@/Components/Icons/UsersIcon.vue';
 
-const studies = [
-  'Bahasa Indonesia',
-  'Matematika',
-  'IPAS',
-  'Pendidikan Pancasila',
-  'Bahasa Inggris',
-  'Seni Budaya',
-];
+// const studies = [
+  // 'Bahasa Indonesia',
+  // 'Matematika',
+  // 'IPAS',
+  // 'Pendidikan Pancasila',
+  // 'Bahasa Inggris',
+  // 'Seni Budaya',
+// ];
 
 </script>
 
@@ -74,7 +75,7 @@ const studies = [
 
       <Dropdown-Group
         :is-active="current.startsWith('formative')"
-        :item-count="studies.length">
+        :item-count="subjects.length">
         <template #dropdown-trigger>
           <Nav-Link
             :is-active="current.startsWith('formative')"
@@ -85,24 +86,34 @@ const studies = [
           </Nav-Link>
         </template>
         
-
         <template #dropdown-items>
           <Nav-Link
-            v-for="study, index in studies"
-            :key="index"
-            :is-active="current === `formative.${study}`"
-            @click="changeCurrent(`formative.${study}`)"
+            v-for="subject in subjects"
+            :key="subject.id"
+            :is-active="current === `formative.${subject}`"
+            @click="changeCurrent(`formative.${subject}`)"
             class="dropdown-item">
             <FilePenIcon #icon />
-            {{ study }}
+            {{ subject.name }}
           </Nav-Link>
         </template>
+        <!-- <template #dropdown-items> -->
+          <!-- <Nav-Link -->
+            <!-- v-for="study, index in studies" -->
+            <!-- :key="index" -->
+            <!-- :is-active="current === `formative.${study}`" -->
+            <!-- @click="changeCurrent(`formative.${study}`)" -->
+            <!-- class="dropdown-item"> -->
+            <!-- <FilePenIcon #icon /> -->
+            <!-- {{ study }} -->
+          <!-- </Nav-Link> -->
+        <!-- </template> -->
       </Dropdown-Group>
 
 
       <Dropdown-Group
         :is-active="current.startsWith('sumative')"
-        :item-count="studies.length">
+        :item-count="subjects.length">
         <template #dropdown-trigger>
           <Nav-Link
             :is-active="current.startsWith('sumative')"
@@ -115,13 +126,13 @@ const studies = [
 
         <template #dropdown-items>
           <Nav-Link
-            v-for="study, index in studies"
-            :key="index"
-            :is-active="current === `sumative.${study}`"
-            @click="changeCurrent(`sumative.${study}`)"
+            v-for="subject in subjects"
+            :key="subject.id"
+            :is-active="current === `formative.${subject}`"
+            @click="changeCurrent(`formative.${subject}`)"
             class="dropdown-item">
             <FilePenIcon #icon />
-            {{ study }}
+            {{ subject.name }}
           </Nav-Link>
         </template>
       </Dropdown-Group>

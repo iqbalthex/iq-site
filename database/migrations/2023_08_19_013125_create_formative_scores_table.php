@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('formative_scores', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('classroom_id')->constrained();
             $table->foreignId('student_id')->constrained();
+            $table->foreignId('subject_id')->constrained();
             $table->json('scores')->nullable();
             $table->softDeletes();
             $table->timestamps();

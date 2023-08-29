@@ -1,6 +1,18 @@
 <script setup>
 
-import { defineAsyncComponent } from 'vue';
+const props = defineProps({
+  user: {
+    type: Object, required: true
+  },
+  classroomIds: {
+    type: Array,  required: true
+  },
+  subjects: {
+    type: Array,  required: true
+  }
+});
+
+import { defineAsyncComponent, onMounted, ref } from 'vue';
 import { Head } from '@inertiajs/vue3';
 
 import TeacherLayout from '@/Layouts/TeacherLayout.vue';
@@ -46,7 +58,8 @@ function importPage(name) {
     <Sidebar
       :sidebar-open="sidebarOpen"
       :change-current="changeCurrent"
-      :current="current" />
+      :current="current"
+      :subjects="subjects" />
   </template>
 
   <template #header="{ title }">
@@ -56,7 +69,9 @@ function importPage(name) {
   <template #main="{ activeRoute }">
     <div class="text-gray-900">
       <KeepAlive>
-        <component :is="getActiveRoute(activeRoute)" />
+        <component
+          :is="getActiveRoute(activeRoute)"
+          :subjects="subjects" />
       </KeepAlive>
     </div>
   </template>

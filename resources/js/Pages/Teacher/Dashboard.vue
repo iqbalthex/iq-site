@@ -1,5 +1,11 @@
 <script setup>
 
+defineProps({
+  subjects: {
+    type: Array
+  }
+});
+
 // import { onCreated, onMounted } from 'vue';
 
 // onCreated(() => {
@@ -15,5 +21,13 @@
 <template>
 
 Teacher Dashboard
+
+<div>
+  <div
+    v-for="subject in subjects"
+    class="card border border-black">
+    {{ subject.name }}
+  </div>
+</div>
 
 </template>
