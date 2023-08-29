@@ -31,14 +31,14 @@ function closeSidebar({ clientX, clientY }) {
 
 <template>
 
-<div class="flex min-h-screen bg-gray-50">
+<div class="flex min-h-screen max-h-screen overflow-y-hidden bg-gray-50">
   <slot name="sidebar"
     :sidebar-open="sidebarOpen"
     :change-current="changeCurrent"
     :current="current" />
 
   <div :class="sidebarOpen && 'open'" @click="closeSidebar"
-    class="main-container">
+    class="main-container pb-16">
     <header v-if="$slots.header">
       <div class="flex items-center py-1 border-b border-gray-200">
         <div class="ml-2 mr-8">
@@ -53,10 +53,12 @@ function closeSidebar({ clientX, clientY }) {
       </div>
     </header>
 
-    <main>
+    <main class="h-full overflow-y-scroll">
       <div class="py-2">
         <div class="max-w-7xl mx-auto p-4 overflow-hidden shadow-sm sm:rounded-lg sm:px-6 lg:px-8">
-          <slot name="main" :active-route="current" />
+          <slot name="main"
+            :active-route="current"
+            :change-current="changeCurrent" />
         </div>
       </div>
     </main>
@@ -74,6 +76,10 @@ function closeSidebar({ clientX, clientY }) {
 
 .main-container.open {
   max-width: calc(100% - 15rem);
+}
+
+::-webkit-scrollbar {
+  /* display: none; */
 }
 
 </style>

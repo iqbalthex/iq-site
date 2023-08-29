@@ -77,21 +77,22 @@ import UsersIcon       from '@/Components/Icons/UsersIcon.vue';
         :is-active="current.startsWith('formative')"
         :item-count="subjects.length">
         <template #dropdown-trigger>
-          <Nav-Link
+          <div
             :is-active="current.startsWith('formative')"
             @click="changeCurrent('formative')"
-            class="dropdown-trigger">
+            class="dropdown-trigger relative flex pl-3 py-2 text-lg font-medium rounded-l-xl text-gray-200
+            w-max flex items-center gap-4 group-hover:text-yellow-200 group-hover:tracking-normal transition-all duration-150 ease-in-out">
             <FilePenIcon #icon />
             Penilaian Formatif
-          </Nav-Link>
+          </div>
         </template>
         
         <template #dropdown-items>
           <Nav-Link
             v-for="subject in subjects"
             :key="subject.id"
-            :is-active="current === `formative.${subject}`"
-            @click="changeCurrent(`formative.${subject}`)"
+            :is-active="current === `formative.${subject.name}`"
+            @click="changeCurrent(`formative.${subject.name}`)"
             class="dropdown-item">
             <FilePenIcon #icon />
             {{ subject.name }}

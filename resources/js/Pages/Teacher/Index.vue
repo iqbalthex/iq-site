@@ -32,7 +32,15 @@ const routes = {
   'raport'   : importPage('Raport'),
 };
 
-const getActiveRoute = routeName => routes[routeName];
+const getActiveRoute = routeName => {
+  if (routeName.startsWith('formative.')) {
+    return route['formative'];
+  } else if (routeName.startsWith('sumative.')) {
+    return route['sumative'];
+  }
+
+  return routes[routeName];
+};
 
 
 function importPage(name) {
@@ -51,7 +59,7 @@ function importPage(name) {
 
 <template>
 
-<Head title="Operator Menu" />
+<Head title="Teacher Menu" />
 
 <Teacher-Layout>
   <template #sidebar="{ sidebarOpen, changeCurrent, current }">
@@ -66,11 +74,12 @@ function importPage(name) {
     <h2 class="w-screen font-semibold text-xl text-gray-800 leading-tight">{{ title }}</h2>
   </template>
 
-  <template #main="{ activeRoute }">
+  <template #main="{ activeRoute, changeCurrent }">
     <div class="text-gray-900">
       <KeepAlive>
         <component
           :is="getActiveRoute(activeRoute)"
+          :change-current="changeCurrent"
           :subjects="subjects" />
       </KeepAlive>
     </div>
