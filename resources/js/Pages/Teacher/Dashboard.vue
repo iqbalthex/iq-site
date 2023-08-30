@@ -13,8 +13,9 @@ const thisProps = defineProps({
 
 import { inject } from 'vue';
 
+// Change current active classroom
 const changeClassroom = inject("$changeClassroom");
-console.log(thisProps.props.classrooms);
+
 </script>
 
 <template>

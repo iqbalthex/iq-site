@@ -9,9 +9,13 @@ const props = defineProps({
   }
 });
 
+
+// Modules
 import { computed, defineAsyncComponent, onMounted, provide, ref } from 'vue';
 import { Head } from '@inertiajs/vue3';
 
+
+// Components
 import TeacherLayout from '@/Layouts/TeacherLayout.vue';
 
 import Dashboard from './Dashboard.vue';
@@ -19,6 +23,8 @@ import Error     from '@/Components/Error.vue';
 import Loading   from '@/Components/Loading.vue';
 import Sidebar   from './Partials/Sidebar.vue';
 
+
+// Variables
 const students = ref({});
 
 const currentClassroom = ref(null);
@@ -40,6 +46,8 @@ const routes = {
   // 'raport'   : importPage('Raport'),
 };
 
+
+// Child scoped variables.
 provide("$changeClassroom", async index => {
   currentClassroom.value = index;
 
@@ -51,10 +59,23 @@ provide("$changeClassroom", async index => {
 });
 
 
+// Functions
+/**
+ * Get current active route.
+ *
+ * @param  {string} routeName
+ * @return {string}
+ */
 function getActiveRoute(routeName) {
   return routes[routeName.split('.')[0]];
 }
 
+/**
+ * Import page dynamically.
+ *
+ * @param  {string} name
+ * @return {Object}
+ */
 function importPage(name) {
   return defineAsyncComponent({
     loader: () => import(`./${name}-Page.vue`),

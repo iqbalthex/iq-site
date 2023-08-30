@@ -1,6 +1,6 @@
 <script setup>
 
-const props = defineProps({
+defineProps({
   sidebarOpen:   { type: Boolean, required: true },
   changeCurrent: { type: Function },
   current:       { type: String },

@@ -38,7 +38,6 @@ class TeacherController extends Controller {
     }
 
     public function getStudents(Classroom $classroom) {
-        // dd($classroom->students);
-        return $classroom->students;
+        return response($classroom->students, 200);
     }
 }
