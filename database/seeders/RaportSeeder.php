@@ -5,9 +5,10 @@ namespace Database\Seeders;
 use App\Models\ {
   Classroom,
   FormativeScore,
-  Teacher,
   Student,
   Subject,
+  SubjectTeacher,
+  Teacher,
 };
 use Illuminate\Database\Seeder;
 
@@ -23,8 +24,10 @@ class RaportSeeder extends Seeder
         }
 
         Subject::factory(15)->create();
-        Teacher::factory(5)->create();
+        Teacher::factory(10)->create();
         Student::factory(20)->create();
         FormativeScore::factory(30)->create();
+
+        SubjectTeacher::factory(10)->create();
     }
 }

@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Teacher>
  */
-class TeacherFactory extends Factory
+class SubjectTeacherFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,9 +18,8 @@ class TeacherFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => mt_rand(1, 10),
-            'classroom_id' => mt_rand(1, 6),
-            'class' => mt_rand(1, 6),
+            'subject_id' => mt_rand(1, 15),
+            'teacher_id' => mt_rand(1, 10),
         ];
     }
 }

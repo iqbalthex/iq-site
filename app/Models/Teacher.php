@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ {
+  Factories\HasFactory,
+  Model,
+  Relations\BelongsTo,
+  Relations\BelongsToMany,
+};
 
 class Teacher extends Model
 {
@@ -11,11 +15,11 @@ class Teacher extends Model
 
     protected $guarded = ['id'];
 
-    public function classroom() {
+    public function classroom(): BelongsTo {
         return $this->belongsTo(Classroom::class);
     }
 
-    public function subject() {
-        return $this->belongsTo(Subject::class);
+    public function subjects(): BelongsToMany {
+        return $this->belongsToMany(Subject::class);
     }
 }

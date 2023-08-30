@@ -1,47 +1,42 @@
 <script setup>
 
-defineProps({
+const thisProps = defineProps({
   changeCurrent: {
     type: Function,
     required: true
   },
-  subjects: {
-    type: Array
+  props: {
+    type: Object,
+    default: {}
   }
 });
 
-// import { onCreated, onMounted } from 'vue';
+import { inject } from 'vue';
 
-// onCreated(() => {
-  // fetch data overview
-// });
-
-// onMounted(() => {
-  // map data to view
-// });
-
+const changeClassroom = inject("$changeClassroom");
+console.log(thisProps.props.classrooms);
 </script>
 
 <template>
 
-<!--div>
-  <div
-    v-for="subject in subjects"
-    class="card border border-black">
-    {{ subject.name }}
-  </div>
-</div-->
+<section class="space-y-4">
+  <template v-for="classroom in props.classrooms" :key="classroom.id">
+    <div v-if="classroom.subjects.length > 0" class="border-b border-violet-300">
+      <h2 class="text-xl font-bold">
+        Kode kelas: {{ classroom.code }} |
+        Jumlah siswa: {{ classroom.student_count }}
+      </h2>
 
-<section>
-  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-x-6 md:gap-y-4">
-    <template v-for="subject in subjects" :key="subject.id">
-      <div class="p-2 md:px-6 lg:px-8 lg:py-4 bg-violet-200 rounded-md border border-transparent shadow-gray-300 cursor-pointer hover:bg-blue-300 hover:scale-x-[1.02] hover:border-gray-400/75 hover:shadow-lg transition duration-300"
-        @click="changeCurrent(`formative.${subject.name}`)">
-        <h3 class="mb-2 text-xl font-bold dark:text-white">{{ subject.name }}</h3>
-        <p class="text-gray-500 dark:text-gray-400">Plan it, create it, launch it. Collaborate seamlessly .</p>
+      <div class="pb-2 grid md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-x-6 md:gap-y-4">
+        <template v-for="subject in classroom.subjects" :key="subject.id">
+          <div class="p-2 md:px-6 lg:px-8 lg:py-4 bg-violet-200 rounded-md border border-transparent shadow-gray-300 cursor-pointer hover:bg-blue-300 hover:scale-x-[1.02] hover:border-gray-400/75 hover:shadow-lg transition duration-300"
+            @click="changeClassroom(classroom.id)">
+            <h3 class="mb-1 text-lg font-bold dark:text-white">Mapel: {{ subject.name }}</h3>
+          </div>
+        </template>
       </div>
-    </template>
-  </div>
+    </div>
+  </template>
 </section>
 
 </template>

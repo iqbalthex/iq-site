@@ -4,15 +4,12 @@ const props = defineProps({
   user: {
     type: Object, required: true
   },
-  classroomIds: {
-    type: Array,  required: true
-  },
-  subjects: {
+  classrooms: {
     type: Array,  required: true
   }
 });
 
-import { defineAsyncComponent, onMounted, ref } from 'vue';
+import { computed, defineAsyncComponent, onMounted, provide, ref } from 'vue';
 import { Head } from '@inertiajs/vue3';
 
 import TeacherLayout from '@/Layouts/TeacherLayout.vue';
@@ -22,25 +19,34 @@ import Error     from '@/Components/Error.vue';
 import Loading   from '@/Components/Loading.vue';
 import Sidebar   from './Partials/Sidebar.vue';
 
+const students = ref({});
+props.classrooms.forEach(classroom => {
+  students.value[classroom.id] = [];
+});
+
+const getActiveRoute = routeName => routes[routeName.split('.')[0]];
+
+const currentClassroom = ref(null);
+const  activeClassroom = computed(() => props.classrooms[currentClassroom.value]);
+
 const routes = {
-  'dashboard': Dashboard,
-  'students' : importPage('Students'),
-  'objective': importPage('Objective'),
-  'formative': importPage('Formative'),
-  'sumative' : importPage('Sumative'),
-  'extras'   : importPage('Extras'),
-  'raport'   : importPage('Raport'),
+  'dashboard': {
+    component: Dashboard,
+    props: { classrooms: props.classrooms }
+  },
+  'students': {
+    component: importPage('Students'),
+    props: { students }
+  },
+  // 'objective': importPage('Objective'),
+  // 'formative': importPage('Formative'),
+  // 'sumative' : importPage('Sumative'),
+  // 'extras'   : importPage('Extras'),
+  // 'raport'   : importPage('Raport'),
 };
 
-const getActiveRoute = routeName => {
-  if (routeName.startsWith('formative.')) {
-    return route['formative'];
-  } else if (routeName.startsWith('sumative.')) {
-    return route['sumative'];
-  }
-
-  return routes[routeName];
-};
+provide("$changeClassroom", id => (currentClassroom.value = id - 1));
+// provide("$updateStudents", () => (students.value = {}));
 
 
 function importPage(name) {
@@ -54,7 +60,7 @@ function importPage(name) {
     timeout: 3000,
   });
 }
-
+console.log(props.subjects);
 </script>
 
 <template>
@@ -67,7 +73,7 @@ function importPage(name) {
       :sidebar-open="sidebarOpen"
       :change-current="changeCurrent"
       :current="current"
-      :subjects="subjects" />
+      :subjects="activeClassroom.subjects" />
   </template>
 
   <template #header="{ title }">
@@ -78,9 +84,9 @@ function importPage(name) {
     <div class="text-gray-900">
       <KeepAlive>
         <component
-          :is="getActiveRoute(activeRoute)"
-          :change-current="changeCurrent"
-          :subjects="subjects" />
+          :is="getActiveRoute(activeRoute).component"
+          :props="getActiveRoute(activeRoute).props"
+          :change-current="changeCurrent" />
       </KeepAlive>
     </div>
   </template>
