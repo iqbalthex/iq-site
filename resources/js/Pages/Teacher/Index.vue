@@ -1,11 +1,11 @@
 <script setup>
 
 const props = defineProps({
-  user: {
-    type: Object, required: true
-  },
   classrooms: {
     type: Array,  required: true
+  },
+  user: {
+    type: Object, required: true
   }
 });
 
@@ -20,14 +20,9 @@ import Loading   from '@/Components/Loading.vue';
 import Sidebar   from './Partials/Sidebar.vue';
 
 const students = ref({});
-props.classrooms.forEach(classroom => {
-  students.value[classroom.id] = [];
-});
-
-const getActiveRoute = routeName => routes[routeName.split('.')[0]];
 
 const currentClassroom = ref(null);
-const  activeClassroom = computed(() => props.classrooms[currentClassroom.value]);
+const activeClassroom  = computed(() => props.classrooms[currentClassroom.value]);
 
 const routes = {
   'dashboard': {
@@ -45,9 +40,20 @@ const routes = {
   // 'raport'   : importPage('Raport'),
 };
 
-provide("$changeClassroom", id => (currentClassroom.value = id - 1));
-// provide("$updateStudents", () => (students.value = {}));
+provide("$changeClassroom", async index => {
+  currentClassroom.value = index;
 
+  const response = await fetch(route('teacher.students', activeClassroom.value.id));
+  const data = await response.json();
+
+  students.value[index] = data;
+  // console.log(students.value[currentClassroom.value]);
+});
+
+
+function getActiveRoute(routeName) {
+  return routes[routeName.split('.')[0]];
+}
 
 function importPage(name) {
   return defineAsyncComponent({
@@ -60,7 +66,7 @@ function importPage(name) {
     timeout: 3000,
   });
 }
-console.log(props.subjects);
+
 </script>
 
 <template>
@@ -72,8 +78,8 @@ console.log(props.subjects);
     <Sidebar
       :sidebar-open="sidebarOpen"
       :change-current="changeCurrent"
-      :current="current"
-      :subjects="activeClassroom.subjects" />
+      :current="current" />
+      <!-- :subjects="activeClassroom.subjects" /> -->
   </template>
 
   <template #header="{ title }">

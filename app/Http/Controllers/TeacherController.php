@@ -36,4 +36,9 @@ class TeacherController extends Controller {
             'user', 'classrooms',
         ));
     }
+
+    public function getStudents(Classroom $classroom) {
+        // dd($classroom->students);
+        return $classroom->students;
+    }
 }

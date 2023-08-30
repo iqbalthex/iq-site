@@ -14,6 +14,8 @@ Route::controller(TeacherController::class)->prefix('/teacher')->name('teacher.'
     Route::get('/', 'index')->name('index');
     // Route::get('/formative/{subject?}', 'formative')->name('formative');
     // Route::get('/sumative/{subject?}', 'sumative')->name('sumative');
+
+    Route::get('/students/{classroom?}', 'getStudents')->name('students');
 });
 
 Route::get('/profile/edit', function () {

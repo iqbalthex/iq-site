@@ -65,6 +65,7 @@ import UsersIcon       from '@/Components/Icons/UsersIcon.vue';
       </Nav-Link>
 
       <Dropdown-Group
+        v-if="subjects"
         label="Penilaian Formatif"
         :icon="FilePenIcon"
         :item-count="subjects.length"
@@ -83,6 +84,7 @@ import UsersIcon       from '@/Components/Icons/UsersIcon.vue';
       </Dropdown-Group>
 
       <Dropdown-Group
+        v-if="subjects"
         label="Penilaian Sumatif"
         :icon="FilePenIcon"
         :item-count="subjects.length">
