@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('classrooms', function (Blueprint $table) {
             $table->id();
             $table->string('code');
+            $table->tinyInteger('class');
+            $table->char('phase', 2)->nullable();
+            $table->tinyInteger('semester')->nullable();
             $table->timestamps();
         });
     }

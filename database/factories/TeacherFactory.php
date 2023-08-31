@@ -20,7 +20,6 @@ class TeacherFactory extends Factory
         return [
             'user_id' => mt_rand(1, 10),
             'classroom_id' => mt_rand(1, 6),
-            'class' => mt_rand(1, 6),
         ];
     }
 }

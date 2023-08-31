@@ -15,9 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('classroom_id')->constrained();
-            $table->tinyInteger('class');
-            $table->char('phase', 2)->nullable();
-            $table->tinyInteger('semester')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

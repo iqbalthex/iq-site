@@ -37,7 +37,10 @@ const routes = {
   },
   'students': {
     component: importPage('Students'),
-    props: { students }
+    props: {
+      currentClassroom: currentClassroom,
+      students: students,
+    }
   },
   // 'objective': importPage('Objective'),
   // 'formative': importPage('Formative'),
@@ -54,8 +57,8 @@ provide("$changeClassroom", async index => {
   const response = await fetch(route('teacher.students', activeClassroom.value.id));
   const data = await response.json();
 
-  students.value[index] = data;
-  // console.log(students.value[currentClassroom.value]);
+  students.value[currentClassroom.value] = data;
+  // console.log("currentClassroom:", currentClassroom.value)
 });
 
 
@@ -99,8 +102,8 @@ function importPage(name) {
     <Sidebar
       :sidebar-open="sidebarOpen"
       :change-current="changeCurrent"
-      :current="current" />
-      <!-- :subjects="activeClassroom.subjects" /> -->
+      :current="current"
+      :currentClassroom="currentClassroom" />
   </template>
 
   <template #header="{ title }">

@@ -1,10 +1,11 @@
 <script setup>
 
 defineProps({
-  sidebarOpen:   { type: Boolean, required: true },
-  changeCurrent: { type: Function },
-  current:       { type: String },
-  subjects:      { type: Array }
+  sidebarOpen:      { type: Boolean, required: true },
+  changeCurrent:    { type: Function },
+  current:          { type: String },
+  currentClassroom: { type: Number },
+  subjects:         { type: Array }
 });
 
 import DropdownGroup from '@/Components/DropdownGroup.vue';
@@ -43,70 +44,72 @@ import UsersIcon       from '@/Components/Icons/UsersIcon.vue';
         Dashboard
       </Nav-Link>
 
-      <Nav-Link
-        :is-active="current === 'students'"
-        @click="changeCurrent('students')">
-        <UsersIcon #icon />
-        Data Siswa
-      </Nav-Link>
+      <template v-if="currentClassroom">
+        <Nav-Link
+          :is-active="current === 'students'"
+          @click="changeCurrent('students')">
+          <UsersIcon #icon />
+          Data Siswa
+        </Nav-Link>
 
-      <Nav-Link
-        :is-active="current === 'objective'"
-        @click="changeCurrent('objective')">
-        <BookIcon #icon />
-        Tujuan Pembelajaran
-      </Nav-Link>
+        <Nav-Link
+          :is-active="current === 'objective'"
+          @click="changeCurrent('objective')">
+          <BookIcon #icon />
+          Tujuan Pembelajaran
+        </Nav-Link>
 
-      <Nav-Link
-        :is-active="current === 'extras'"
-        @click="changeCurrent('extras')">
-        <StarIcon #icon />
-        Ekstrakurikuler
-      </Nav-Link>
+        <Nav-Link
+          :is-active="current === 'extras'"
+          @click="changeCurrent('extras')">
+          <StarIcon #icon />
+          Ekstrakurikuler
+        </Nav-Link>
 
-      <Dropdown-Group
-        v-if="subjects"
-        label="Penilaian Formatif"
-        :icon="FilePenIcon"
-        :item-count="subjects.length"
-        :is-active="current.startsWith('formative.')">
-        <template #dropdown-items>
-          <Nav-Link
-            v-for="subject in subjects"
-            :key="subject.id"
-            :is-active="current === `formative.${subject.name}`"
-            @click="changeCurrent(`formative.${subject.name}`)"
-            class="dropdown-item">
-            <FilePenIcon #icon />
-            {{ subject.name }}
-          </Nav-Link>
-        </template>
-      </Dropdown-Group>
+        <Dropdown-Group
+          v-if="subjects"
+          label="Penilaian Formatif"
+          :icon="FilePenIcon"
+          :item-count="subjects.length"
+          :is-active="current.startsWith('formative.')">
+          <template #dropdown-items>
+            <Nav-Link
+              v-for="subject in subjects"
+              :key="subject.id"
+              :is-active="current === `formative.${subject.name}`"
+              @click="changeCurrent(`formative.${subject.name}`)"
+              class="dropdown-item">
+              <FilePenIcon #icon />
+              {{ subject.name }}
+            </Nav-Link>
+          </template>
+        </Dropdown-Group>
 
-      <Dropdown-Group
-        v-if="subjects"
-        label="Penilaian Sumatif"
-        :icon="FilePenIcon"
-        :item-count="subjects.length">
-        <template #dropdown-items>
-          <Nav-Link
-            v-for="subject in subjects"
-            :key="subject.id"
-            :is-active="current === `sumative.${subject.name}`"
-            @click="changeCurrent(`sumative.${subject.name}`)"
-            class="dropdown-item">
-            <FilePenIcon #icon />
-            {{ subject.name }}
-          </Nav-Link>
-        </template>
-      </Dropdown-Group>
+        <Dropdown-Group
+          v-if="subjects"
+          label="Penilaian Sumatif"
+          :icon="FilePenIcon"
+          :item-count="subjects.length">
+          <template #dropdown-items>
+            <Nav-Link
+              v-for="subject in subjects"
+              :key="subject.id"
+              :is-active="current === `sumative.${subject.name}`"
+              @click="changeCurrent(`sumative.${subject.name}`)"
+              class="dropdown-item">
+              <FilePenIcon #icon />
+              {{ subject.name }}
+            </Nav-Link>
+          </template>
+        </Dropdown-Group>
 
-      <Nav-Link
-        :is-active="current === 'print.raport'"
-        @click="changeCurrent('print.raport')">
-        <FileLinesIcon #icon />
-        Cetak Raport
-      </Nav-Link>
+        <Nav-Link
+          :is-active="current === 'print.raport'"
+          @click="changeCurrent('print.raport')">
+          <FileLinesIcon #icon />
+          Cetak Raport
+        </Nav-Link>
+      </template>
     </div>
 
     <div class="pl-2 pt-3 border-t border-gray-200">

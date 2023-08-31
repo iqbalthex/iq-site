@@ -22,7 +22,8 @@ const changeClassroom = inject("$changeClassroom");
 
 <section class="space-y-4">
   <template v-for="classroom, index in props.classrooms" :key="classroom.id">
-    <div v-if="classroom.subjects.length > 0" class="border-b border-violet-300">
+    <div v-if="classroom.subjects.length > 0" class="border-b border-violet-300"
+      @click="changeCurrent('students')">
       <h2 class="text-xl font-bold">
         Kode kelas: {{ classroom.code }} |
         Jumlah siswa: {{ classroom.student_count }}

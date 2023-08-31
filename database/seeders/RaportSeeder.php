@@ -20,7 +20,10 @@ class RaportSeeder extends Seeder
     public function run(): void
     {
         for ($i = 0; $i < 6; $i++) {
-            Classroom::create([ 'code' => "CLS_1000$i" ]);
+            Classroom::create([
+                'code'  => "CLS_1000$i",
+                'class' => mt_rand(1, 6),
+            ]);
         }
 
         Subject::factory(15)->create();
