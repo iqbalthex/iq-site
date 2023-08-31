@@ -60,7 +60,6 @@ provide("$changeClassroom", async index => {
   const data = await response.json();
 
   students.value[currentClassroom.value] = data;
-  // console.log("currentClassroom:", currentClassroom.value)
 });
 
 
