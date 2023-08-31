@@ -33,14 +33,16 @@ const activeClassroom  = computed(() => props.classrooms[currentClassroom.value]
 const routes = {
   'dashboard': {
     component: Dashboard,
-    props: { classrooms: props.classrooms }
+    props: {
+      classrooms: props.classrooms,
+    },
   },
   'students': {
     component: importPage('Students'),
     props: {
-      currentClassroom: currentClassroom,
-      students: students,
-    }
+      currentClassroom,
+      students,
+    },
   },
   // 'objective': importPage('Objective'),
   // 'formative': importPage('Formative'),
@@ -115,8 +117,8 @@ function importPage(name) {
       <KeepAlive>
         <component
           :is="getActiveRoute(activeRoute).component"
-          :props="getActiveRoute(activeRoute).props"
-          :change-current="changeCurrent" />
+          :change-current="changeCurrent"
+          v-bind="getActiveRoute(activeRoute).props" />
       </KeepAlive>
     </div>
   </template>

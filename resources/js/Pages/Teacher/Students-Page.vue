@@ -1,7 +1,12 @@
 <script setup>
 
-const thisProps = defineProps({
-  props: { type: Object }
+const props = defineProps({
+  currentClassroom: {
+    type: Object,
+  },
+  students: {
+    type: Object,
+  },
 });
 
 import { computed } from 'vue';
@@ -9,7 +14,7 @@ import { computed } from 'vue';
 import Loading from '@/Components/Loading.vue';
 
 const loading = computed(() => {
-  return !thisProps.props.students.value[thisProps.props.currentClassroom.value]?.length;
+  return !props.students.value[props.currentClassroom.value]?.length;
 });
 
 </script>
@@ -35,7 +40,7 @@ const loading = computed(() => {
               </tr>
             </template>
             <tr
-              v-for="student, index in props.students.value[props.currentClassroom.value]"
+              v-for="student, index in students.value[currentClassroom.value]"
               :key="student.id"
               class="border-b dark:border-gray-700">
               <th scope="row" class="px-4 py-3">{{ index + 1 }}</th>
