@@ -112,7 +112,7 @@ function importPage(name) {
   </template>
 
   <template #main="{ activeRoute, changeCurrent }">
-    <div class="text-gray-900">
+    <div class="text-gray-900 max-h-screen">
       <KeepAlive>
         <component
           :is="getActiveRoute(activeRoute).component"
