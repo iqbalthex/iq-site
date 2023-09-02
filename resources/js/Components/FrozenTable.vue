@@ -15,14 +15,16 @@ const loading = computed(() => !props.items?.length);
 
 <template>
 
-<table class="w-full text-center text-gray-800 dark:text-gray-400">
-  <thead class="sticky top-0 z-20 text-gray-700 uppercase bg-green-200 dark:bg-gray-700 dark:text-gray-400">
-    <tr class="">
-      <div class="flex sticky left-0">
+<table ref="table" class="w-full text-center text-gray-800 dark:text-gray-400">
+  <thead class="sticky top-0 z-20 text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400">
+    <tr>
+      <div class="flex items-center sticky left-0 z-20">
         <slot name="head-start" />
       </div>
       <slot name="head-center" />
-      <slot name="head-end" />
+      <div class="flex items-center sticky right-0 z-20">
+        <slot name="head-end" />
+      </div>
     </tr>
   </thead>
   <tbody>
@@ -31,40 +33,15 @@ const loading = computed(() => !props.items?.length);
       v-for="item, index in items"
       :key="item.id"
       class="border-b border-slate-400 dark:border-gray-700">
-      <slot name="item-list" :item="item" :index="index" />
-      <!-- <div class="sticky left-0 z-10 bg-gray-100"> -->
-        <!-- <slot name="body-start" :item="item" /> -->
-      <!-- </div> -->
-      <!-- <slot name="body-center" /> -->
-      <!-- <slot name="body-end" /> -->
+      <div class="flex items-center h-full sticky left-0 z-10 bg-gray-100 border-l border-slate-400">
+        <slot name="body-start" :item="item" :index="index" />
+      </div>
+      <slot name="body-center" :item="item" />
+      <div class="flex items-center sticky right-0 z-10 bg-gray-100">
+        <slot name="body-end" />
+      </div>
     </tr>
     </tbody>
 </table>
 
 </template>
-
-<style scoped>
-
-thead th {
-  @apply border-violet-500;
-}
-
-th,
-td {
-  @apply border-r border-slate-400;
-}
-
-thead th,
-tbody div > td {
-  @apply px-2 py-1 whitespace-nowrap;
-}
-
-thead th {
-  @apply px-2 bg-violet-300;
-}
-
-tbody tr > td {
-  @apply px-2 py-1 bg-sky-200;
-}
-
-</style>
