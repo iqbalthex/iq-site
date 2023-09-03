@@ -38,8 +38,8 @@ const loading = computed(() => !props.items?.length);
       </div>
       <slot
         :item="item"
-        :y-index="index"
         :last-row="index === (items.length - 1)"
+        :row-index="index"
         name="body-center" />
       <div class="flex items-center sticky right-0 z-10 bg-gray-100">
         <slot name="body-end" />

@@ -9,37 +9,12 @@ const props = defineProps({
   },
 });
 
-import { computed, onMounted } from 'vue';
+import { computed, ref } from 'vue';
+import { moveUp, moveDown, moveLeft, moveRight } from '@/utils/input-methods.js';
 
 import FrozenTable from '@/Components/FrozenTable.vue';
 
-onMounted(() => {
-  setTimeout(() => {
-    console.log('Input listener bound');
-    document.querySelectorAll('input[data-x][data-y]').forEach(input => {
-      let { x, y } = input.dataset;
-
-      input.onkeydown = function ({ keyCode, target }) {
-        if (keyCode < 37 && keyCode > 40) return;
-
-        const lastItem = document.querySelector('td input[data-last="true"]');
-        const { x: xLast, y: yLast } = lastItem.dataset;
-
-        ({
-          37: () => (x > 0)     && x--,
-          39: () => (x < xLast) && x++,
-          38: () => (y > 0)     && y--,
-          40: () => (y < yLast) && y++,
-        })[keyCode]();
-
-        const to = document.querySelector(`td input[data-x="${x}"][data-y="${y}"]`);
-        to.focus();
-        console.log(target.dataset)
-        console.log(to.dataset);
-      }
-    });
-  }, 3000);
-});
+const scores = ref([72, 76, 73, 75, 80]);
 
 </script>
 
@@ -62,11 +37,6 @@ onMounted(() => {
           <th scope="col">Nilai 3</th>
           <th scope="col">Nilai 4</th>
           <th scope="col">Nilai 5</th>
-          <th scope="col">Nilai 6</th>
-          <th scope="col">Nilai 7</th>
-          <th scope="col">Nilai 8</th>
-          <th scope="col">Nilai 9</th>
-          <th scope="col">Nilai 10</th>
         </template>
 
         <template #head-end>
@@ -78,16 +48,19 @@ onMounted(() => {
           <td class="w-full text-left border-l">{{ item.name }}</td>
         </template>
 
-        <template #body-center="{ item, yIndex, lastRow }">
+        <template #body-center="{ item, lastRow, rowIndex }">
           <!-- <template v-for="score, index in item.scores" :key="index"> -->
-          <template v-for="score, xIndex in [72, 76, 73, 75, 80, 95, 74, 87, 84, 90]" :key="xIndex">
+          <template v-for="score, colIndex in scores" :key="colIndex">
             <td>
               <input
-                :data-last="lastRow && (xIndex === 9) && 'true'"
-                :data-x="xIndex"
-                :data-y="yIndex"
+                :data-col="colIndex"
+                :data-row="rowIndex"
                 :value="score"
-                class="score-input w-full p-0 text-center bg-transparent border-0"
+                @keydown.prevent.up="moveUp($event)"
+                @keydown.prevent.down="moveDown($event, lastRow)"
+                @keydown.prevent.left="moveLeft($event)"
+                @keydown.prevent.right="moveRight($event, colIndex === (scores.length - 1))"
+                class="score-input w-full p-0 text-center bg-transparent border-0 focus:scale-125"
                 type="number" />
             </td>
           </template>
@@ -137,6 +110,10 @@ td input::-webkit-inner-spin-button {
 
 td input.score-input:focus {
   box-shadow: none;
+}
+
+td:has(input:focus) {
+  @apply bg-rose-200;
 }
 
 </style>
