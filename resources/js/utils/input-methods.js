@@ -30,4 +30,4 @@ export {
   moveDown,
   moveLeft,
   moveRight,
-}
+};

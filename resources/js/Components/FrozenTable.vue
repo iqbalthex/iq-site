@@ -6,10 +6,16 @@ const props = defineProps({
   },
 });
 
-import { computed } from 'vue';
-import Loading from '@/Components/Loading.vue';
+import { computed, ref, watchEffect } from 'vue';
+import { calcTotal }     from '@/utils/calc-total.js';
+import Loading           from '@/Components/Loading.vue';
 
 const loading = computed(() => !props.items?.length);
+const rows = ref([]);
+
+watchEffect(() => {
+  rows.value.forEach(row => calcTotal(row.dataset.row));
+});
 
 </script>
 
@@ -29,23 +35,30 @@ const loading = computed(() => !props.items?.length);
   </thead>
   <tbody>
     <Loading v-if="loading" />
-    <tr v-else
+    <tr
+      v-else
       v-for="item, index in items"
+      :data-row="index"
       :key="item.id"
+      ref="rows"
       class="border-b border-slate-400 dark:border-gray-700">
+
       <div class="flex items-center h-full sticky left-0 z-10 bg-gray-100 border-l border-slate-400">
         <slot name="body-start" :item="item" :index="index" />
       </div>
+
       <slot
         :item="item"
         :last-row="index === (items.length - 1)"
         :row-index="index"
         name="body-center" />
+
       <div class="flex items-center sticky right-0 z-10 bg-gray-100">
-        <slot name="body-end" />
+        <slot name="body-end" :row-index="index" />
       </div>
+
     </tr>
-    </tbody>
+  </tbody>
 </table>
 
 </template>

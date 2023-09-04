@@ -11,10 +11,20 @@ const props = defineProps({
 
 import { computed, ref } from 'vue';
 import { moveUp, moveDown, moveLeft, moveRight } from '@/utils/input-methods.js';
+import { calcTotal } from '@/utils/calc-total.js';
 
 import FrozenTable from '@/Components/FrozenTable.vue';
 
 const scores = ref([72, 76, 73, 75, 80]);
+let timeout;
+
+
+function onInput(target, rowIndex) {
+  clearTimeout(timeout);
+  target.value || (target.value = 0);
+
+  timeout = setTimeout(() => calcTotal(rowIndex), 400);
+}
 
 </script>
 
@@ -56,6 +66,7 @@ const scores = ref([72, 76, 73, 75, 80]);
                 :data-col="colIndex"
                 :data-row="rowIndex"
                 :value="score"
+                @input="onInput($event.target, rowIndex)"
                 @keydown.prevent.up="moveUp($event)"
                 @keydown.prevent.down="moveDown($event, lastRow)"
                 @keydown.prevent.left="moveLeft($event)"
@@ -66,8 +77,8 @@ const scores = ref([72, 76, 73, 75, 80]);
           </template>
         </template>
 
-        <template #body-end>
-          <td class="w-full bg-yellow-300">{{ 60 + (Math.random().toFixed(2) * 30) }}</td>
+        <template #body-end="{ rowIndex }">
+          <td class="w-full bg-yellow-300" :data-total="rowIndex">0</td>
         </template>
       </Frozen-Table>
     </div>

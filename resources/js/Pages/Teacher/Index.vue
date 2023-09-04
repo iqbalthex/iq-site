@@ -45,8 +45,20 @@ const routes = {
     },
   },
   // 'objective': importPage('Objective'),
-  // 'formative': importPage('Formative'),
-  // 'sumative' : importPage('Sumative'),
+  'formative': {
+    component: importPage('Formative'),
+    props: {
+      currentClassroom,
+      students,
+    },
+  },
+  /*'sumative': {
+    component: importPage('Students'),
+    props: {
+      currentClassroom,
+      students,
+    },
+  },*/
   // 'extras'   : importPage('Extras'),
   // 'raport'   : importPage('Raport'),
 };
