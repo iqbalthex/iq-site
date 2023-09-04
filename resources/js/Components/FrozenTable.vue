@@ -11,11 +11,11 @@ import { calcTotal }     from '@/utils/calc-total.js';
 import Loading           from '@/Components/Loading.vue';
 
 const loading = computed(() => !props.items?.length);
-const rows = ref([]);
+// const rows = ref([]);
 
-watchEffect(() => {
-  rows.value.forEach(row => calcTotal(row.dataset.row));
-});
+// watchEffect(() => {
+  // rows.value.forEach(row => calcTotal(row.dataset.row));
+// });
 
 </script>
 
@@ -40,8 +40,8 @@ watchEffect(() => {
       v-for="item, index in items"
       :data-row="index"
       :key="item.id"
-      ref="rows"
       class="border-b border-slate-400 dark:border-gray-700">
+      <!-- ref="rows" -->
 
       <div class="flex items-center h-full sticky left-0 z-10 bg-gray-100 border-l border-slate-400">
         <slot name="body-start" :item="item" :index="index" />

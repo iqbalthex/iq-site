@@ -3,7 +3,7 @@ function moveUp({ target }) {
   (row > 0) && inputFocus(row - 1, col);
 }
 
-function moveDown({ target }, lastRow) {
+function moveDown({ target }, lastRow=false) {
   let { col, row } = target.dataset;
   lastRow || inputFocus(parseInt(row) + 1, col);
 }
@@ -13,7 +13,7 @@ function moveLeft({ target }) {
   (col > 0) && inputFocus(row, col - 1);
 }
 
-function moveRight({ target }, lastCol) {
+function moveRight({ target }, lastCol=false) {
   let { col, row } = target.dataset;
   lastCol || inputFocus(row, parseInt(col) + 1);
 }

@@ -108,7 +108,7 @@ td {
 }
 
 thead th {
-  @apply px-2 bg-violet-300;
+  @apply bg-violet-300;
 }
 
 tbody tr > td {

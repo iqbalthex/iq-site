@@ -11,20 +11,10 @@ const props = defineProps({
 
 import { computed, ref } from 'vue';
 import { moveUp, moveDown, moveLeft, moveRight } from '@/utils/input-methods.js';
-import { calcTotal } from '@/utils/calc-total.js';
 
 import FrozenTable from '@/Components/FrozenTable.vue';
 
 const scores = ref([72, 76, 73, 75, 80]);
-let timeout;
-
-
-function onInput(target, rowIndex) {
-  clearTimeout(timeout);
-  target.value || (target.value = 0);
-
-  timeout = setTimeout(() => calcTotal(rowIndex), 400);
-}
 
 </script>
 
@@ -42,43 +32,91 @@ function onInput(target, rowIndex) {
         </template>
 
         <template #head-center>
-          <th scope="col">Nilai 1</th>
-          <th scope="col">Nilai 2</th>
-          <th scope="col">Nilai 3</th>
-          <th scope="col">Nilai 4</th>
-          <th scope="col">Nilai 5</th>
+          <th scope="col">NISN</th>
+          <th scope="col">L/P</th>
+          <th scope="col">Tempat Lahir</th>
+          <th scope="col">Tanggal Lahir</th>
+          <th scope="col">Agama</th>
+          <th scope="col">Alamat</th>
+          <th scope="col" class="parent">Nama Ayah</th>
+          <th scope="col" class="parent">Nama Ibu</th>
+          <th scope="col" class="parent">Pekerjaan Ayah</th>
+          <th scope="col" class="parent">Pekerjaan Ibu</th>
+          <th scope="col" class="parent">Alamat Orang Tua</th>
+          <th scope="col" class="parent">No Handphone Orang Tua</th>
+          <th scope="col">Nama Wali</th>
+          <th scope="col">Pekerjaan Wali</th>
+          <th scope="col">Alamat Wali</th>
+          <th scope="col">No Handphone Wali</th>
         </template>
 
         <template #head-end>
-          <th class="w-full">Total</th>
+          <th scope="col" class="w-8 presence">S</th>
+          <th scope="col" class="w-8 presence">I</th>
+          <th scope="col" class="w-8 presence">A</th>
         </template>
 
         <template #body-start="{ item, index }">
           <th class="w-12" scope="row">{{ index + 1 }}</th>
-          <td class="w-full text-left border-l">{{ item.name }}</td>
+          <td class="w-full text-left border-l">
+            <input
+              data-col="0"
+              :data-row="index"
+              :value="item.name"
+              @keydown.prevent.up="moveUp($event)"
+              @keydown.prevent.down="moveDown($event)"
+              @keydown.prevent.left="moveLeft($event)"
+              @keydown.prevent.right="moveRight($event)"
+              class="score-input p-0 bg-transparent border-0 focus:scale-125"
+              type="text" />
+          </td>
         </template>
 
         <template #body-center="{ item, lastRow, rowIndex }">
-          <!-- <template v-for="score, index in item.scores" :key="index"> -->
-          <template v-for="score, colIndex in scores" :key="colIndex">
-            <td>
-              <input
-                :data-col="colIndex"
-                :data-row="rowIndex"
-                :value="score"
-                @input="onInput($event.target, rowIndex)"
-                @keydown.prevent.up="moveUp($event)"
-                @keydown.prevent.down="moveDown($event, lastRow)"
-                @keydown.prevent.left="moveLeft($event)"
-                @keydown.prevent.right="moveRight($event, colIndex === (scores.length - 1))"
-                class="score-input w-full p-0 text-center bg-transparent border-0 focus:scale-125"
-                type="number" />
-            </td>
-          </template>
+          <td>
+            <input
+              data-col="1"
+              :data-row="rowIndex"
+              :value="item.nisn"
+              @keydown.prevent.up="moveUp($event)"
+              @keydown.prevent.down="moveDown($event, lastRow)"
+              @keydown.prevent.left="moveLeft($event)"
+              @keydown.prevent.right="moveRight($event)"
+              class="score-input w-full text-center p-0 bg-transparent border-0 focus:scale-125"
+              type="text" />
+          </td>
+          <td>
+            <input
+              data-col="2"
+              :data-row="rowIndex"
+              value="L"
+              @keydown.prevent.up="moveUp($event)"
+              @keydown.prevent.down="moveDown($event, lastRow)"
+              @keydown.prevent.left="moveLeft($event)"
+              @keydown.prevent.right="moveRight($event, true)"
+              class="score-input w-full text-center p-0 bg-transparent border-0 focus:scale-125"
+              type="text" />
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
         </template>
 
-        <template #body-end="{ rowIndex }">
-          <td class="w-full bg-yellow-300" :data-total="rowIndex">0</td>
+        <template #body-end="{ item }">
+          <td class="w-8">{{ parseInt(Math.random() * 3) }}</td>
+          <td class="w-8">{{ parseInt(Math.random() * 3) }}</td>
+          <td class="w-8">{{ parseInt(Math.random() * 3) }}</td>
         </template>
       </Frozen-Table>
     </div>
@@ -108,7 +146,15 @@ td {
 }
 
 thead th {
-  @apply px-2 bg-violet-300;
+  @apply bg-violet-300;
+}
+
+thead th.parent {
+  @apply bg-lime-200;
+}
+
+thead th.presence {
+  @apply bg-yellow-300;
 }
 
 tbody tr > td {
