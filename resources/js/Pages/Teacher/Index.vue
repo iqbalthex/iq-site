@@ -27,7 +27,7 @@ import Sidebar   from './Partials/Sidebar.vue';
 // Variables
 const students = ref({});
 
-const currentClassroom = ref(null);
+const currentClassroom = ref(1);
 const activeClassroom  = computed(() => props.classrooms[currentClassroom.value]);
 
 const routes = {
@@ -38,20 +38,21 @@ const routes = {
     },
   },
   'students': {
-    component: importPage('Students'),
+    component: importPage('Formative'),
     props: {
+      // classroom: activeClassroom.value,
       currentClassroom,
       students,
     },
   },
   // 'objective': importPage('Objective'),
-  'formative': {
-    component: importPage('Formative'),
-    props: {
-      currentClassroom,
-      students,
-    },
-  },
+  // 'formative': {
+    // component: importPage('Formative'),
+    // props: {
+      // currentClassroom,
+      // students,
+    // },
+  // },
   /*'sumative': {
     component: importPage('Students'),
     props: {

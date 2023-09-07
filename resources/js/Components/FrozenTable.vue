@@ -1,64 +1,61 @@
-<script setup>
-
-const props = defineProps({
-  items: {
-    type: Array,
-  },
-});
-
-import { computed, ref, watchEffect } from 'vue';
-import { calcTotal }     from '@/utils/calc-total.js';
-import Loading           from '@/Components/Loading.vue';
-
-const loading = computed(() => !props.items?.length);
-// const rows = ref([]);
-
-// watchEffect(() => {
-  // rows.value.forEach(row => calcTotal(row.dataset.row));
-// });
-
-</script>
-
 <template>
 
-<table ref="table" class="w-full text-center text-gray-800 dark:text-gray-400">
-  <thead class="sticky top-0 z-20 text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400">
-    <tr>
-      <div class="flex items-center sticky left-0 z-20">
-        <slot name="head-start" />
+<section>
+  <div class="mx-auto max-w-screen-xl shadow-md">
+    <div class="max-w-screen max-h-screen bg-[#999] dark:bg-gray-800 rounded">
+      <div class="table-wrapper w-full h-[500px] overflow-y-scroll">
+        <table class="w-full text-center text-gray-800 dark:text-gray-400">
+          <thead class="sticky top-0 z-20 text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400">
+            <slot name="head" />
+          </thead>
+          <tbody>
+            <slot name="body" />
+          </tbody>
+        </table>
       </div>
-      <slot name="head-center" />
-      <div class="flex items-center sticky right-0 z-20">
-        <slot name="head-end" />
-      </div>
-    </tr>
-  </thead>
-  <tbody>
-    <Loading v-if="loading" />
-    <tr
-      v-else
-      v-for="item, index in items"
-      :data-row="index"
-      :key="item.id"
-      class="border-b border-slate-400 dark:border-gray-700">
-      <!-- ref="rows" -->
-
-      <div class="flex items-center h-full sticky left-0 z-10 bg-gray-100 border-l border-slate-400">
-        <slot name="body-start" :item="item" :index="index" />
-      </div>
-
-      <slot
-        :item="item"
-        :last-row="index === (items.length - 1)"
-        :row-index="index"
-        name="body-center" />
-
-      <div class="flex items-center sticky right-0 z-10 bg-gray-100">
-        <slot name="body-end" :row-index="index" />
-      </div>
-
-    </tr>
-  </tbody>
-</table>
+    </div>
+  </div>
+</section>
 
 </template>
+
+<style>
+
+.table-wrapper::-webkit-scrollbar {
+  @apply hidden;
+}
+
+div.freeze {
+  @apply flex items-center sticky z-10;
+}
+
+tr > div.freeze:first-child {
+  @apply left-0 border-l border-slate-400;
+}
+
+tr > div.freeze:last-child {
+  @apply right-0;
+}
+
+thead th {
+  @apply border-r border-violet-500;
+}
+
+thead th,
+tbody div > td {
+  @apply px-2 py-1 whitespace-nowrap;
+}
+
+thead th {
+  @apply bg-violet-300;
+}
+
+tbody tr > td {
+  @apply bg-sky-200 cursor-pointer hover:bg-sky-400 transition duration-300;
+}
+
+td {
+  @apply border-r border-slate-400;
+}
+
+</style>
