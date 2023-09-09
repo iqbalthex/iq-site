@@ -12,7 +12,7 @@ const props = defineProps({
   },
 });
 
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { moveUp, moveDown, moveLeft, moveRight } from '@/utils/input-methods.js';
 import { calcTotal } from '@/utils/calc-total.js';
 
@@ -22,8 +22,16 @@ import Loading     from '@/Components/Loading.vue';
 const students = computed(() => props.students.value[props.currentClassroom.value]);
 const loading = computed(() => !props.students.value[props.currentClassroom.value]?.length);
 const scores = [72, 76, 73, 75, 80];
-let timeout;
 
+
+const totalRows = ref([]);
+
+watch(totalRows.value, () => {
+  totalRows.value.forEach(row => calcTotal(row.dataset.total));
+});
+
+
+let timeout;
 
 function onInput(target, rowIndex) {
   clearTimeout(timeout);
@@ -83,7 +91,7 @@ function onInput(target, rowIndex) {
           </td>
         </template>
         <div class="freeze">
-          <td class="w-full bg-yellow-300" :data-total="rowIndex">0</td>
+          <td class="w-full bg-yellow-300" :data-total="rowIndex" ref="totalRows">0</td>
         </div>
       </tr>
     </template>

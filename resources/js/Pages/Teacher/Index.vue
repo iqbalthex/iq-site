@@ -38,7 +38,7 @@ const routes = {
     },
   },
   'students': {
-    component: importPage('Formative'),
+    component: importPage('Students'),
     props: {
       // classroom: activeClassroom.value,
       currentClassroom,
