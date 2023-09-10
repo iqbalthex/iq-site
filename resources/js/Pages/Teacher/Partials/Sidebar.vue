@@ -39,7 +39,7 @@ import UsersIcon       from '@/Components/Icons/UsersIcon.vue';
     <div class="pl-2 py-3 border-t border-gray-200">
       <Nav-Link
         :is-active="current === 'dashboard'"
-        @click="changeCurrent('dashboard')">
+        @click="changeCurrent('dashboard', 'Dashboard')">
         <TableColumnIcon #icon />
         Dashboard
       </Nav-Link>
@@ -47,14 +47,14 @@ import UsersIcon       from '@/Components/Icons/UsersIcon.vue';
       <template v-if="currentClassroom">
         <Nav-Link
           :is-active="current === 'students'"
-          @click="changeCurrent('students')">
+          @click="changeCurrent('students', 'Data Siswa')">
           <UsersIcon #icon />
           Data Siswa
         </Nav-Link>
 
         <Nav-Link
           :is-active="current === 'objective'"
-          @click="changeCurrent('objective')">
+          @click="changeCurrent('objective', 'Tujuan Pembelajaran')">
           <BookIcon #icon />
           Tujuan Pembelajaran
         </Nav-Link>

@@ -11,7 +11,7 @@ const props = defineProps({
 
 
 // Modules
-import { computed, defineAsyncComponent, onMounted, provide, ref } from 'vue';
+import { computed, defineAsyncComponent, onMounted, provide, reactive, ref } from 'vue';
 import { Head } from '@inertiajs/vue3';
 
 
@@ -25,9 +25,9 @@ import Sidebar   from './Partials/Sidebar.vue';
 
 
 // Variables
-const students = ref({});
+const students = reactive({});
 
-const currentClassroom = ref(1);
+const currentClassroom = ref(null);
 const activeClassroom  = computed(() => props.classrooms[currentClassroom.value]);
 
 const routes = {
@@ -66,13 +66,15 @@ const routes = {
 
 
 // Child scoped variables.
-provide("$changeClassroom", async index => {
+provide("$changeClassroom", index => {
   currentClassroom.value = index;
 
-  const response = await fetch(route('teacher.students', activeClassroom.value.id));
-  const data = await response.json();
+  if (students[currentClassroom.value]) return;
 
-  students.value[currentClassroom.value] = data;
+  fetch(route('teacher.students', activeClassroom.value.id))
+    .then(response => response.json())
+    .then(data => (students[currentClassroom.value] = data))
+    .catch(err => console.log(err));
 });
 
 
@@ -121,7 +123,11 @@ function importPage(name) {
   </template>
 
   <template #header="{ title }">
-    <h2 class="w-screen font-semibold text-xl text-gray-800 leading-tight">{{ title }}</h2>
+    <h2 class="w-screen font-semibold text-xl text-gray-800 leading-tight">
+      <span>{{ title }}</span>
+      <span class="ml-6">Kelas: {{ activeClassroom.class }}</span>
+      <span class="ml-6">Kode: {{ activeClassroom.code }}</span>
+    </h2>
   </template>
 
   <template #main="{ activeRoute, changeCurrent }">

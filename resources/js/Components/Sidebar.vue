@@ -61,7 +61,7 @@ const studies = [
 
       <Nav-Link
         :is-active="current === 'students'"
-        @click="changeCurrent('students')">
+        @click="changeCurrent('students', 'Data Siswa')">
         <UsersIcon #icon />
         Data Siswa
       </Nav-Link>

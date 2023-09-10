@@ -19,8 +19,8 @@ import { calcTotal } from '@/utils/calc-total.js';
 import FrozenTable from '@/Components/FrozenTable.vue';
 import Loading     from '@/Components/Loading.vue';
 
-const students = computed(() => props.students.value[props.currentClassroom.value]);
-const loading = computed(() => !props.students.value[props.currentClassroom.value]?.length);
+const students = computed(() => props.students[props.currentClassroom.value]);
+const loading = computed(() => !props.students[props.currentClassroom.value]?.length);
 const scores = [72, 76, 73, 75, 80];
 
 

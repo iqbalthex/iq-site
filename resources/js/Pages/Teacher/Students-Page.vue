@@ -18,8 +18,8 @@ import { moveUp, moveDown, moveLeft, moveRight } from '@/utils/input-methods.js'
 import FrozenTable from '@/Components/FrozenTable.vue';
 import Loading     from '@/Components/Loading.vue';
 
-const students = computed(() => props.students.value[props.currentClassroom.value]);
-const loading = computed(() => !props.students.value[props.currentClassroom.value]?.length);
+const students = computed(() => props.students[props.currentClassroom.value]);
+const loading = computed(() => !props.students[props.currentClassroom.value]?.length);
 
 </script>
 
