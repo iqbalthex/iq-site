@@ -46,13 +46,13 @@ const routes = {
     },
   },
   // 'objective': importPage('Objective'),
-  // 'formative': {
-    // component: importPage('Formative'),
-    // props: {
-      // currentClassroom,
-      // students,
-    // },
-  // },
+  'formative': {
+    component: importPage('Formative'),
+    props: {
+      currentClassroom,
+      students,
+    },
+  },
   /*'sumative': {
     component: importPage('Students'),
     props: {

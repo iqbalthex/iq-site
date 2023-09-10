@@ -57,7 +57,7 @@ function onInput(target, rowIndex) {
       <th scope="col">Nilai 4</th>
       <th scope="col">Nilai 5</th>
       <div class="freeze flex items-center sticky right-0 z-10">
-        <th class="w-full">Totala</th>
+        <th class="w-full">Total</th>
       </div>
     </tr>
   </template>

@@ -1,6 +1,9 @@
 <script setup>
 
 const props = defineProps({
+  changeCurrent: {
+    
+  },
   currentClassroom: {
     type: Object,
   },

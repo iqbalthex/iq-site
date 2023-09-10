@@ -1,20 +1,20 @@
-function moveUp({ target }) {
-  let { col, row } = target.dataset;
+function moveUp(e) {
+  const { col, row } = e.target.dataset;
   (row > 0) && inputFocus(row - 1, col);
 }
 
-function moveDown({ target }, lastRow=false) {
-  let { col, row } = target.dataset;
+function moveDown(e, lastRow=false) {
+  const { col, row } = e.target.dataset;
   lastRow || inputFocus(parseInt(row) + 1, col);
 }
 
-function moveLeft({ target }) {
-  let { col, row } = target.dataset;
+function moveLeft(e) {
+  const { col, row } = e.target.dataset;
   (col > 0) && inputFocus(row, col - 1);
 }
 
-function moveRight({ target }, lastCol=false) {
-  let { col, row } = target.dataset;
+function moveRight(e, lastCol=false) {
+  const { col, row } = e.target.dataset;
   lastCol || inputFocus(row, parseInt(col) + 1);
 }
 

@@ -1,4 +1,6 @@
 export function calcTotal(rowIndex) {
+  if (!document.querySelector('td input[data-total]')) return;
+
   const dataRows = document.querySelectorAll(`td input[data-row="${rowIndex}"]`);
 
   let total = 0.;

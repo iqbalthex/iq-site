@@ -38,7 +38,7 @@ const studies = [
     <!-- Logo -->
     <div class="pl-2">
       <Nav-Link
-        @click="changeCurrent('dashboard')">
+        @click="changeCurrent('dashboard', 'Dashboard')">
         <HomeIcon #icon />
         Raport
       </Nav-Link>
@@ -47,7 +47,7 @@ const studies = [
     <div class="pl-2 py-3 border-t border-gray-200">
       <Nav-Link
         :is-active="current === 'dashboard'"
-        @click="changeCurrent('dashboard')">
+        @click="changeCurrent('dashboard', 'Dashboard')">
         <TableColumnIcon #icon />
         Dashboard
       </Nav-Link>
